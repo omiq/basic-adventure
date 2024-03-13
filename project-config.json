@@ -1,0 +1,13 @@
+{
+    "name": "basic-adventure",
+    "description": "Project basic-adventure",
+    "toolkit": "basic",
+    "sources": [
+        "src/main.bas"
+    ],
+    "build": "debug",
+    "definitions": [],
+    "includes": [],
+    "args": [],
+    "compiler": ""
+}
