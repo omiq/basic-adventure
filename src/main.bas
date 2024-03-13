@@ -21,9 +21,38 @@ if mid$(ex$(pl),11,2)<>"00" then print "down"
 getcommand:
 print "what now?"
 input i$
+if left$(i$,3) = "go " then gosub fullmove
+if i$ = "n" then gosub abrmove
+if i$ = "e" then gosub abrmove
+if i$ = "s" then gosub abrmove
+if i$ = "w" then gosub abrmove
+if i$ = "u" then gosub abrmove
+if i$ = "d" then gosub abrmove
+
 
 goto displayroom
 
+fullmove:
+d$ = mid$(i$,4,1)
+gosub moves
+return
+
+abrmove:
+d$ = i$
+gosub moves
+return
+
+
+MOVES:
+
+if d$ = "n" then pl = val(mid$(ex$(pl),1,2))
+if d$ = "e" then pl = val(mid$(ex$(pl),3,2))
+if d$ = "s" then pl = val(mid$(ex$(pl),5,2))
+if d$ = "w" then pl = val(mid$(ex$(pl),7,2))
+if d$ = "u" then pl = val(mid$(ex$(pl),9,2))
+if d$ = "d" then pl = val(mid$(ex$(pl),11,2))
+
+return
 
 INIT: 
 rem objects and locations 
@@ -60,8 +89,8 @@ en$(5)="down"
 rem room exits
 rem N E S W U D
 dim ex$(20)
-ex$(1)="000200000000"
-ex$(2)="000010000000"
+ex$(1)="000002000000"
+ex$(2)="010000000000"
 ex$(3)="000000000000"
 
 
