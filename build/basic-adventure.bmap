@@ -4,5 +4,34 @@
 ################################################################################
 
 /home/chrisg/github/basic-adventure/src/main.bas
-2049,2076,1,0,25              # 1 REM *** BASIC PROGRAM ***
-2077,2099,2,1,26              # 2 PRINT "{147}HELLO, WORLD!"
+2049,2077,1,0,28              # 1 ? "{147}text adventure game"
+2078,2086,2,2,10              # 2 GOSUB 10
+2087,2100,3,6,13              # 3 PRINT LO$(PL)
+2101,2182,4,7,98              # 4 FOR I = 0 TO OC : REM check object locations from the first object to object count
+2183,2260,5,8,83              # 5 IF OL(I) = PL THEN PRINT OB$(I) : REM if the object is in current location print it
+2261,2268,6,9,6               # 6 NEXT I
+2269,2286,7,12,17             # 7 PRINT "what now?"
+2287,2295,8,13,8              # 8 INPUT I$
+2296,2303,9,15,16             # 9 GOTO 3
+2304,2331,10,19,25            # 10 REM objects and locations
+2332,2359,11,20,25            # 11 REM =====================
+2360,2373,12,21,11            # 12 REM objects
+2374,2387,13,22,11            # 13 DIM OB$(20)
+2388,2408,14,23,16            # 14 OB$(0)="matches"
+2409,2431,15,24,18            # 15 OB$(1)="brass key"
+2432,2459,16,25,25            # 16 OC = 2 : REM object count
+2460,2475,17,27,13            # 17 REM locations
+2476,2489,18,28,11            # 18 DIM LO$(20)
+2490,2512,19,29,18            # 19 LO$(0)="inventory"
+2513,2540,20,30,23            # 20 LO$(1)="grand entrance"
+2541,2559,21,31,14            # 21 LO$(2)="study"
+2560,2585,22,32,23            # 22 RC = 3 : REM room count
+2586,2610,23,34,22            # 23 REM object's locations
+2611,2643,24,35,30            # 24 REM loc 0 = player's inventory
+2644,2656,25,36,10            # 25 DIM OL(20)
+2657,2668,26,37,7             # 26 OL(0)=0
+2669,2680,27,38,7             # 27 OL(1)=1
+2681,2693,28,40,10            # 28 REM player
+2694,2706,29,41,10            # 29 REM ======
+2707,2737,30,42,28            # 30 PL = 1 : REM player location
+2738,2743,31,44,6             # 31 RETURN
