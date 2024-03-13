@@ -36,6 +36,7 @@ if i$ = "u" then gosub abrmove
 if i$ = "d" then gosub abrmove
 if left$(i$,1) = "i" then gosub inventory
 if left$(i$,4) = "get " then gosub getobject
+if left$(i$,5) = "drop " then gosub dropobject
 
 
 goto displayroom
@@ -72,11 +73,12 @@ for i = 0 to oc-1                       : rem check object location from the fir
 if ol(i) = 0 then print ". ";ob$(i)     : rem if the object is in zero print it
 next i
 print ""
-print "press a key to continue"
 
 waitkey:
+print "press a key to continue"
+waitingforkey:
 get i$
-if i$="" goto waitkey
+if i$="" goto waitingforkey
 RETURN
 
 getobject:
@@ -89,21 +91,47 @@ for i = 1 to oc
 if ob$(i-1) = r$ then f=i : rem it exists
 next i
 
+rem can't find it? 
+print ""
 if f=-1 then print "can't see that here, check spelling and be specific?" : goto donegetting
 if ol(f-1)=pl then goto gotit
-if ol(f-1)=0 then print "you already have that"
-
+if ol(f-1)=0 then print "you already have that" : goto donegetting
+print "I can't see that around here"
 goto donegetting
 
 gotit:
 ol(f-1)=0 : rem set the object location to inventory aka room zero
 print ""
 print "got the ";obj$(f-1)
+
 donegetting:
 print ""
-print "press a key to continue"
 gosub waitkey
 RETURN
+
+
+DROPOBJECT:
+rem drop objects the player is carrying
+
+f=-1:r$=""
+r$ = mid$(i$,6)         : rem r$ is object requested
+
+rem get the object id
+for i = 1 to oc 
+if ob$(i-1) = r$ then f=i : rem it exists
+next i
+
+rem can't find it? 
+print ""
+if f=-1 then print "can't seem to find that, check spelling and be specific?" : goto donedropping
+if ol(f-1)=0 then print "ok, dropped!" : ol(f-1)=pl : goto donedropping
+print "no can do, are you sure you have that?"
+
+
+donedropping:
+gosub waitkey
+RETURN
+
 
 INIT: 
 rem objects and locations 
