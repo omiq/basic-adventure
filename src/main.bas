@@ -36,6 +36,7 @@ if i$ = "u" then gosub abrmove
 if i$ = "d" then gosub abrmove
 if left$(i$,1) = "i" then gosub inventory
 if left$(i$,4) = "get " then gosub getobject
+if left$(i$,5) = "take " then gosub takeobject
 if left$(i$,5) = "drop " then gosub dropobject
 if left$(i$,1) = "q" then goto gameover
 
@@ -81,11 +82,18 @@ get i$
 if i$="" goto waitingforkey
 RETURN
 
+takeobject:
+rem alternative action to get
+f=-1:r$=""
+r$ = mid$(i$,6)         : rem r$ is object requested
+goto getobjid
+
 getobject:
 rem allow player to get available object and put in inventory
 f=-1:r$=""
 r$ = mid$(i$,5)         : rem r$ is object requested
 
+getobjid:
 rem get the object id
 for i = 1 to oc 
 if ob$(i-1) = r$ then f=i : rem it exists
