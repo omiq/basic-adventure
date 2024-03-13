@@ -5,33 +5,54 @@
 
 /home/chrisg/github/basic-adventure/src/main.bas
 2049,2077,1,0,28              # 1 ? "{147}text adventure game"
-2078,2086,2,2,10              # 2 GOSUB 10
+2078,2086,2,2,10              # 2 GOSUB 17
 2087,2100,3,6,13              # 3 PRINT LO$(PL)
 2101,2182,4,7,98              # 4 FOR I = 0 TO OC : REM check object locations from the first object to object count
 2183,2260,5,8,83              # 5 IF OL(I) = PL THEN PRINT OB$(I) : REM if the object is in current location print it
 2261,2268,6,9,6               # 6 NEXT I
-2269,2286,7,12,17             # 7 PRINT "what now?"
-2287,2295,8,13,8              # 8 INPUT I$
-2296,2303,9,15,16             # 9 GOTO 3
-2304,2331,10,19,25            # 10 REM objects and locations
-2332,2359,11,20,25            # 11 REM =====================
-2360,2373,12,21,11            # 12 REM objects
-2374,2387,13,22,11            # 13 DIM OB$(20)
-2388,2408,14,23,16            # 14 OB$(0)="matches"
-2409,2431,15,24,18            # 15 OB$(1)="brass key"
-2432,2459,16,25,25            # 16 OC = 2 : REM object count
-2460,2475,17,27,13            # 17 REM locations
-2476,2489,18,28,11            # 18 DIM LO$(20)
-2490,2512,19,29,18            # 19 LO$(0)="inventory"
-2513,2540,20,30,23            # 20 LO$(1)="grand entrance"
-2541,2559,21,31,14            # 21 LO$(2)="study"
-2560,2585,22,32,23            # 22 RC = 3 : REM room count
-2586,2610,23,34,22            # 23 REM object's locations
-2611,2643,24,35,30            # 24 REM loc 0 = player's inventory
-2644,2656,25,36,10            # 25 DIM OL(20)
-2657,2668,26,37,7             # 26 OL(0)=0
-2669,2680,27,38,7             # 27 OL(1)=1
-2681,2693,28,40,10            # 28 REM player
-2694,2706,29,41,10            # 29 REM ======
-2707,2737,30,42,28            # 30 PL = 1 : REM player location
-2738,2743,31,44,6             # 31 RETURN
+2269,2299,7,11,28             # 7 REM check each possible exit
+2300,2338,8,12,45             # 8 IF MID$(EX$(PL),1,2)<>"00" THEN PRINT "north"
+2339,2376,9,13,44             # 9 IF MID$(EX$(PL),3,2)<>"00" THEN PRINT "east"
+2377,2415,10,14,45            # 10 IF MID$(EX$(PL),5,2)<>"00" THEN PRINT "south"
+2416,2453,11,15,44            # 11 IF MID$(EX$(PL),7,2)<>"00" THEN PRINT "west"
+2454,2489,12,16,42            # 12 IF MID$(EX$(PL),9,2)<>"00" THEN PRINT "up"
+2490,2528,13,17,45            # 13 IF MID$(EX$(PL),11,2)<>"00" THEN PRINT "down"
+2529,2546,14,21,17            # 14 PRINT "what now?"
+2547,2555,15,22,8             # 15 INPUT I$
+2556,2563,16,24,16            # 16 GOTO 3
+2564,2591,17,28,25            # 17 REM objects and locations
+2592,2619,18,29,25            # 18 REM =====================
+2620,2633,19,30,11            # 19 REM objects
+2634,2647,20,31,11            # 20 DIM OB$(20)
+2648,2668,21,32,16            # 21 OB$(0)="matches"
+2669,2691,22,33,18            # 22 OB$(1)="brass key"
+2692,2719,23,34,25            # 23 OC = 2 : REM object count
+2720,2735,24,36,13            # 24 REM locations
+2736,2749,25,37,11            # 25 DIM LO$(20)
+2750,2772,26,38,18            # 26 LO$(0)="inventory"
+2773,2800,27,39,23            # 27 LO$(1)="grand entrance"
+2801,2819,28,40,14            # 28 LO$(2)="study"
+2820,2845,29,41,23            # 29 RC = 3 : REM room count
+2846,2870,30,43,22            # 30 REM object's locations
+2871,2903,31,44,30            # 31 REM loc 0 = player's inventory
+2904,2916,32,45,10            # 32 DIM OL(20)
+2917,2928,33,46,7             # 33 OL(0)=0
+2929,2940,34,47,7             # 34 OL(1)=1
+2941,2957,35,49,14            # 35 REM exit names
+2958,2970,36,50,10            # 36 DIM EN$(6)
+2971,2989,37,51,14            # 37 EN$(0)="north"
+2990,3007,38,52,13            # 38 EN$(1)="east"
+3008,3026,39,53,14            # 39 EN$(2)="south"
+3027,3044,40,54,13            # 40 EN$(3)="west"
+3045,3060,41,55,11            # 41 EN$(4)="up"
+3061,3078,42,56,13            # 42 EN$(5)="down"
+3079,3095,43,59,14            # 43 REM room exits
+3096,3113,44,60,15            # 44 REM N E S W U D
+3114,3127,45,61,11            # 45 DIM EX$(20)
+3128,3153,46,62,21            # 46 EX$(1)="000200000000"
+3154,3179,47,63,21            # 47 EX$(2)="000010000000"
+3180,3205,48,64,21            # 48 EX$(3)="000000000000"
+3206,3218,49,68,10            # 49 REM player
+3219,3231,50,69,10            # 50 REM ======
+3232,3262,51,70,28            # 51 PL = 1 : REM player location
+3263,3268,52,72,6             # 52 RETURN
