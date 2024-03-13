@@ -3,6 +3,8 @@
 gosub INIT
 
 displayroom:
+if pl=0 then pl = pp                    : rem player location can not be 00 as that is inventory
+pp = pl                                 : rem backup the location in case illegal move made
 print "{clr}{rvs on}";lo$(pl);" {rvs off}"
 print ""
 print "Objects visible:"
@@ -33,6 +35,7 @@ if i$ = "w" then gosub abrmove
 if i$ = "u" then gosub abrmove
 if i$ = "d" then gosub abrmove
 if left$(i$,1) = "i" then gosub inventory
+if left$(i$,4) = "get " then gosub getobject
 
 
 goto displayroom
@@ -68,9 +71,38 @@ print "Objects in your possession:"
 for i = 0 to oc-1                       : rem check object location from the first object to object count
 if ol(i) = 0 then print ". ";ob$(i)     : rem if the object is in zero print it
 next i
+print ""
+print "press a key to continue"
+
 waitkey:
 get i$
 if i$="" goto waitkey
+RETURN
+
+getobject:
+rem allow player to get available object and put in inventory
+f=-1:r$=""
+r$ = mid$(i$,5)         : rem r$ is object requested
+
+rem get the object id
+for i = 1 to oc 
+if ob$(i-1) = r$ then f=i : rem it exists
+next i
+
+if f=-1 then print "can't see that here, check spelling and be specific?" : goto donegetting
+if ol(f-1)=pl then goto gotit
+if ol(f-1)=0 then print "you already have that"
+
+goto donegetting
+
+gotit:
+ol(f-1)=0 : rem set the object location to inventory aka room zero
+print ""
+print "got the ";obj$(f-1)
+donegetting:
+print ""
+print "press a key to continue"
+gosub waitkey
 RETURN
 
 INIT: 
@@ -117,5 +149,5 @@ ex$(3)="000000000000"
 rem player
 rem ======
 pl = 1 : rem player location
-
+pp = 1 : rem player previous location
 RETURN
