@@ -75,7 +75,7 @@ next i
 print ""
 
 waitkey:
-print "{cyan}press a key to continue"
+print "{cyan}{rvs on}        press a key to continue          {rvs off}"
 waitingforkey:
 get i$
 if i$="" goto waitingforkey
@@ -145,8 +145,9 @@ oc = 2 : rem object count
 rem locations
 dim lo$(20)
 lo$(0)="inventory"
-lo$(1)="grand entrance"
-lo$(2)="study"
+lo$(1)="dank basement"
+lo$(2)="furnace room"
+lo$(3)="service hatch"
 rc = 3 : rem room count
 
 rem object's locations
@@ -166,11 +167,11 @@ en$(5)="down"
 
 
 rem room exits
-rem N E S W U D
+rem     N E S W U D
 dim ex$(20)
 ex$(1)="000002000000"
-ex$(2)="010000000000"
-ex$(3)="000000000000"
+ex$(2)="010000000300"
+ex$(3)="000000000002"
 
 
 
@@ -182,11 +183,14 @@ pp = 1 : rem player previous location
 
 WELCOMESCREEN:
 POKE 53281,6 : POKE 53280,6
-? "{clr}{white}text adventure game"
-? "by chris garrett"
-? "2024"
+? "{clr}{white}"
+? "         murder house"
+? "     a text adventure game"
+? "       by chris garrett"
+? "             2024"
 ?""
-? "{lightgrey}retrogamecoders.com"
+? "{lightgrey}"
+? "      retrogamecoders.com"
 ?""
 ?""
 ?""
@@ -199,5 +203,7 @@ gameover:
 POKE 53281,6 : POKE 53280,14
 print "{clr}{lightblue}Goodbye!"
 print ""
+print fre(0)
 print ""
+
 
