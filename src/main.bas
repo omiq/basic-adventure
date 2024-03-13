@@ -3,22 +3,26 @@
 gosub INIT
 
 displayroom:
-
-print lo$(pl)
-for i = 0 to oc                 : rem check object locations from the first object to object count
-if ol(i) = pl then print ob$(i) : rem if the object is in current location print it
+print "{clr}{rvs on}";lo$(pl);" {rvs off}"
+print ""
+print "Objects visible:"
+for i = 0 to oc-1                       : rem check object locations from the first object to object count
+if ol(i) = pl then print ". ";ob$(i)    : rem if the object is in current location print it
 next i
-
+print ""
+print "exits available:"
 rem check each possible exit
-if mid$(ex$(pl),1,2)<>"00" then print "north"
-if mid$(ex$(pl),3,2)<>"00" then print "east"
-if mid$(ex$(pl),5,2)<>"00" then print "south"
-if mid$(ex$(pl),7,2)<>"00" then print "west"
-if mid$(ex$(pl),9,2)<>"00" then print "up"
-if mid$(ex$(pl),11,2)<>"00" then print "down"
+if mid$(ex$(pl),1,2)<>"00" then print ". north"
+if mid$(ex$(pl),3,2)<>"00" then print ". east"
+if mid$(ex$(pl),5,2)<>"00" then print ". south"
+if mid$(ex$(pl),7,2)<>"00" then print ". west"
+if mid$(ex$(pl),9,2)<>"00" then print ". up"
+if mid$(ex$(pl),11,2)<>"00" then print ". down"
 
 
 getcommand:
+i$=""
+print ""
 print "what now?"
 input i$
 if left$(i$,3) = "go " then gosub fullmove
@@ -28,6 +32,7 @@ if i$ = "s" then gosub abrmove
 if i$ = "w" then gosub abrmove
 if i$ = "u" then gosub abrmove
 if i$ = "d" then gosub abrmove
+if left$(i$,1) = "i" then gosub inventory
 
 
 goto displayroom
@@ -55,6 +60,18 @@ if d$ = "u" then pl = val(mid$(ex$(pl),9,2))
 if d$ = "d" then pl = val(mid$(ex$(pl),11,2))
 
 return
+
+INVENTORY:
+rem objects the player is carrying
+print ""
+print "Objects in your possession:"
+for i = 0 to oc-1                       : rem check object location from the first object to object count
+if ol(i) = 0 then print ". ";ob$(i)     : rem if the object is in zero print it
+next i
+waitkey:
+get i$
+if i$="" goto waitkey
+RETURN
 
 INIT: 
 rem objects and locations 
