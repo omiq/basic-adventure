@@ -38,6 +38,7 @@ if left$(i$,1) = "i" then gosub inventory
 if left$(i$,4) = "get " then gosub getobject
 if left$(i$,5) = "take " then gosub takeobject
 if left$(i$,5) = "drop " then gosub dropobject
+if left$(i$,4) = "look" then ?"":print rd$(pl):?"":gosub waitkey
 if left$(i$,1) = "q" then goto gameover
 
 goto displayroom
@@ -145,22 +146,30 @@ INIT:
 rem objects and locations 
 rem =====================
 rem objects
-dim ob$(20)
+oc = 2 : rem object count
+dim ob$(oc)
 ob$(0)="matches"
 ob$(1)="brass key"
-oc = 2 : rem object count
 
 rem locations
-dim lo$(20)
+rc = 3 : rem room count
+dim lo$(rc)
 lo$(0)="inventory"
 lo$(1)="dank basement"
 lo$(2)="furnace room"
 lo$(3)="service hatch"
-rc = 3 : rem room count
+
+rem room descriptions
+dim rd$(rc)
+rd$(0)=""
+rd$(1)="a chillingly damp, bare-bricked room with poured cement floor and timber beamed ceiling. window frames are boarded along one wall."
+rd$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement."
+rd$(3)="up above the furnace, this tiny space must have been built to allow access to hvac ducting."
+
 
 rem object's locations
 rem loc 0 = player's inventory
-dim ol(20)
+dim ol(oc)
 ol(0)=0
 ol(1)=1
 
