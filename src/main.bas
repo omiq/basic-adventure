@@ -1,18 +1,18 @@
-? "{clr}text adventure game"
+rem text adventure game by chris garrett 2024 retrogamecoders.com
 
 gosub INIT
 
 displayroom:
 if pl=0 then pl = pp                    : rem player location can not be 00 as that is inventory
 pp = pl                                 : rem backup the location in case illegal move made
-print "{clr}{rvs on}";lo$(pl);" {rvs off}"
+print "{clr}{white}{rvs on}";lo$(pl);" {rvs off}"
 print ""
-print "Objects visible:"
+print "{white}Objects visible:{lightblue}"
 for i = 0 to oc-1                       : rem check object locations from the first object to object count
 if ol(i) = pl then print ". ";ob$(i)    : rem if the object is in current location print it
 next i
 print ""
-print "exits available:"
+print "{white}exits available:{lightblue}"
 rem check each possible exit
 if mid$(ex$(pl),1,2)<>"00" then print ". north"
 if mid$(ex$(pl),3,2)<>"00" then print ". east"
@@ -25,7 +25,7 @@ if mid$(ex$(pl),11,2)<>"00" then print ". down"
 getcommand:
 i$=""
 print ""
-print "what now?"
+print "{yellow}what now?{lightblue}"
 input i$
 if left$(i$,3) = "go " then gosub fullmove
 if i$ = "n" then gosub abrmove
@@ -37,7 +37,7 @@ if i$ = "d" then gosub abrmove
 if left$(i$,1) = "i" then gosub inventory
 if left$(i$,4) = "get " then gosub getobject
 if left$(i$,5) = "drop " then gosub dropobject
-
+if left$(i$,1) = "q" then goto gameover
 
 goto displayroom
 
@@ -75,7 +75,7 @@ next i
 print ""
 
 waitkey:
-print "press a key to continue"
+print "{cyan}press a key to continue"
 waitingforkey:
 get i$
 if i$="" goto waitingforkey
@@ -178,4 +178,26 @@ rem player
 rem ======
 pl = 1 : rem player location
 pp = 1 : rem player previous location
+
+
+WELCOMESCREEN:
+POKE 53281,6 : POKE 53280,6
+? "{clr}{white}text adventure game"
+? "by chris garrett"
+? "2024"
+?""
+? "{lightgrey}retrogamecoders.com"
+?""
+?""
+?""
+
+gosub waitkey
+
 RETURN
+
+gameover:
+POKE 53281,6 : POKE 53280,14
+print "{clr}{lightblue}Goodbye!"
+print ""
+print ""
+

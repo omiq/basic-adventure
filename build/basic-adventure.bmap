@@ -4,135 +4,150 @@
 ################################################################################
 
 /home/chrisg/github/basic-adventure/src/main.bas
-2049,2077,1,0,28              # 1 ? "{147}text adventure game"
-2078,2086,2,2,10              # 2 GOSUB 96
-2087,2162,3,5,96              # 3 IF PL=0 THEN PL = PP : REM player location can not be 00 as that is inventory
-2163,2224,4,6,91              # 4 PP = PL : REM backup the location in case illegal move made
-2225,2248,5,7,42              # 5 PRINT "{147}{18}";LO$(PL);" {146}"
-2249,2257,6,8,8               # 6 PRINT ""
-2258,2282,7,9,24              # 7 PRINT "Objects visible:"
-2283,2366,8,10,106            # 8 FOR I = 0 TO OC-1 : REM check object locations from the first object to object count
-2367,2449,9,11,91             # 9 IF OL(I) = PL THEN PRINT ". ";OB$(I) : REM if the object is in current location print it
-2450,2457,10,12,6             # 10 NEXT I
-2458,2466,11,13,8             # 11 PRINT ""
-2467,2491,12,14,24            # 12 PRINT "exits available:"
-2492,2522,13,15,28            # 13 REM check each possible exit
-2523,2563,14,16,47            # 14 IF MID$(EX$(PL),1,2)<>"00" THEN PRINT ". north"
-2564,2603,15,17,46            # 15 IF MID$(EX$(PL),3,2)<>"00" THEN PRINT ". east"
-2604,2644,16,18,47            # 16 IF MID$(EX$(PL),5,2)<>"00" THEN PRINT ". south"
-2645,2684,17,19,46            # 17 IF MID$(EX$(PL),7,2)<>"00" THEN PRINT ". west"
-2685,2722,18,20,44            # 18 IF MID$(EX$(PL),9,2)<>"00" THEN PRINT ". up"
-2723,2763,19,21,47            # 19 IF MID$(EX$(PL),11,2)<>"00" THEN PRINT ". down"
-2764,2773,20,25,5             # 20 I$=""
-2774,2782,21,26,8             # 21 PRINT ""
-2783,2800,22,27,17            # 22 PRINT "what now?"
-2801,2809,23,28,8             # 23 INPUT I$
-2810,2838,24,29,42            # 24 IF LEFT$(I$,3) = "go " THEN GOSUB 35
-2839,2860,25,30,30            # 25 IF I$ = "n" THEN GOSUB 39
-2861,2882,26,31,30            # 26 IF I$ = "e" THEN GOSUB 39
-2883,2904,27,32,30            # 27 IF I$ = "s" THEN GOSUB 39
-2905,2926,28,33,30            # 28 IF I$ = "w" THEN GOSUB 39
-2927,2948,29,34,30            # 29 IF I$ = "u" THEN GOSUB 39
-2949,2970,30,35,30            # 30 IF I$ = "d" THEN GOSUB 39
-2971,2997,31,36,41            # 31 IF LEFT$(I$,1) = "i" THEN GOSUB 51
-2998,3027,32,37,44            # 32 IF LEFT$(I$,4) = "get " THEN GOSUB 62
-3028,3058,33,38,46            # 33 IF LEFT$(I$,5) = "drop " THEN GOSUB 82
-3059,3066,34,41,16            # 34 GOTO 3
-3067,3118,35,44,49            # 35 REM fully written out move (eg. GO SOUTH or GO S)
-3119,3137,36,45,17            # 36 D$ = MID$(I$,4,1)
-3138,3146,37,46,11            # 37 GOSUB 43
-3147,3152,38,47,6             # 38 RETURN
-3153,3183,39,50,28            # 39 REM abbreviated move (eg. N)
-3184,3195,40,51,7             # 40 D$ = I$
-3196,3204,41,52,11            # 41 GOSUB 43
-3205,3210,42,53,6             # 42 RETURN
-3211,3251,43,57,38            # 43 REM go to the new player location (PL)
-3252,3291,44,58,44            # 44 IF D$ = "n" THEN PL = VAL(MID$(EX$(PL),1,2))
-3292,3331,45,59,44            # 45 IF D$ = "e" THEN PL = VAL(MID$(EX$(PL),3,2))
-3332,3371,46,60,44            # 46 IF D$ = "s" THEN PL = VAL(MID$(EX$(PL),5,2))
-3372,3411,47,61,44            # 47 IF D$ = "w" THEN PL = VAL(MID$(EX$(PL),7,2))
-3412,3451,48,62,44            # 48 IF D$ = "u" THEN PL = VAL(MID$(EX$(PL),9,2))
-3452,3492,49,63,45            # 49 IF D$ = "d" THEN PL = VAL(MID$(EX$(PL),11,2))
-3493,3498,50,65,6             # 50 RETURN
-3499,3535,51,68,34            # 51 REM objects the player is carrying
-3536,3544,52,69,8             # 52 PRINT ""
-3545,3580,53,70,35            # 53 PRINT "Objects in your possession:"
-3581,3663,54,71,105           # 54 FOR I = 0 TO OC-1 : REM check object location from the first object to object count
-3664,3733,55,72,79            # 55 IF OL(I) = 0 THEN PRINT ". ";OB$(I) : REM if the object is in zero print it
-3734,3741,56,73,6             # 56 NEXT I
-3742,3750,57,74,8             # 57 PRINT ""
-3751,3782,58,77,31            # 58 PRINT "press a key to continue"
-3783,3791,59,79,6             # 59 GET I$
-3792,3808,60,80,27            # 60 IF I$="" GOTO 59
-3809,3814,61,81,6             # 61 RETURN
-3815,3878,62,84,61            # 62 REM allow player to get available object and put in inventory
-3879,3893,63,85,10            # 63 F=-1:R$=""
-3894,3937,64,86,52            # 64 R$ = MID$(I$,5) : REM r$ is object requested
-3938,3961,65,88,21            # 65 REM get the object id
-3962,3978,66,89,15            # 66 FOR I = 1 TO OC
-3979,4018,67,90,41            # 67 IF OB$(I-1) = R$ THEN F=I : REM it exists
-4019,4026,68,91,6             # 68 NEXT I
-4027,4047,69,93,18            # 69 REM can't find it?
-4048,4056,70,94,8             # 70 PRINT ""
-4057,4133,71,95,92            # 71 IF F=-1 THEN PRINT "can't see that here, check spelling and be specific?" : GOTO 79
-4134,4157,72,96,29            # 72 IF OL(F-1)=PL THEN GOTO 76
-4158,4208,73,97,66            # 73 IF OL(F-1)=0 THEN PRINT "you already have that" : GOTO 79
-4209,4245,74,98,36            # 74 PRINT "I can't see that around here"
-4246,4254,75,99,16            # 75 GOTO 79
-4255,4323,76,102,66           # 76 OL(F-1)=0 : REM set the object location to inventory aka room zero
-4324,4332,77,103,8            # 77 PRINT ""
-4333,4359,78,104,26           # 78 PRINT "got the ";OBJ$(F-1)
-4360,4368,79,107,8            # 79 PRINT ""
-4369,4377,80,108,13           # 80 GOSUB 58
-4378,4383,81,109,6            # 81 RETURN
-4384,4425,82,113,39           # 82 REM drop objects the player is carrying
-4426,4440,83,115,10           # 83 F=-1:R$=""
-4441,4484,84,116,52           # 84 R$ = MID$(I$,6) : REM r$ is object requested
-4485,4508,85,118,21           # 85 REM get the object id
-4509,4525,86,119,15           # 86 FOR I = 1 TO OC
-4526,4565,87,120,41           # 87 IF OB$(I-1) = R$ THEN F=I : REM it exists
-4566,4573,88,121,6            # 88 NEXT I
-4574,4594,89,123,18           # 89 REM can't find it?
-4595,4603,90,124,8            # 90 PRINT ""
-4604,4684,91,125,97           # 91 IF F=-1 THEN PRINT "can't seem to find that, check spelling and be specific?" : GOTO 94
-4685,4739,92,126,71           # 92 IF OL(F-1)=0 THEN PRINT "ok, dropped!" : OL(F-1)=PL : GOTO 94
-4740,4786,93,127,46           # 93 PRINT "no can do, are you sure you have that?"
-4787,4795,94,131,13           # 94 GOSUB 58
-4796,4801,95,132,6            # 95 RETURN
-4802,4829,96,136,25           # 96 REM objects and locations
-4830,4857,97,137,25           # 97 REM =====================
-4858,4871,98,138,11           # 98 REM objects
-4872,4885,99,139,11           # 99 DIM OB$(20)
-4886,4906,100,140,16          # 100 OB$(0)="matches"
-4907,4929,101,141,18          # 101 OB$(1)="brass key"
-4930,4957,102,142,25          # 102 OC = 2 : REM object count
-4958,4973,103,144,13          # 103 REM locations
-4974,4987,104,145,11          # 104 DIM LO$(20)
-4988,5010,105,146,18          # 105 LO$(0)="inventory"
-5011,5038,106,147,23          # 106 LO$(1)="grand entrance"
-5039,5057,107,148,14          # 107 LO$(2)="study"
-5058,5083,108,149,23          # 108 RC = 3 : REM room count
-5084,5108,109,151,22          # 109 REM object's locations
-5109,5141,110,152,30          # 110 REM loc 0 = player's inventory
-5142,5154,111,153,10          # 111 DIM OL(20)
-5155,5166,112,154,7           # 112 OL(0)=0
-5167,5178,113,155,7           # 113 OL(1)=1
-5179,5195,114,157,14          # 114 REM exit names
-5196,5208,115,158,10          # 115 DIM EN$(6)
-5209,5227,116,159,14          # 116 EN$(0)="north"
-5228,5245,117,160,13          # 117 EN$(1)="east"
-5246,5264,118,161,14          # 118 EN$(2)="south"
-5265,5282,119,162,13          # 119 EN$(3)="west"
-5283,5298,120,163,11          # 120 EN$(4)="up"
-5299,5316,121,164,13          # 121 EN$(5)="down"
-5317,5333,122,167,14          # 122 REM room exits
-5334,5351,123,168,15          # 123 REM N E S W U D
-5352,5365,124,169,11          # 124 DIM EX$(20)
-5366,5391,125,170,21          # 125 EX$(1)="000002000000"
-5392,5417,126,171,21          # 126 EX$(2)="010000000000"
-5418,5443,127,172,21          # 127 EX$(3)="000000000000"
-5444,5456,128,176,10          # 128 REM player
-5457,5469,129,177,10          # 129 REM ======
-5470,5500,130,178,28          # 130 PL = 1 : REM player location
-5501,5540,131,179,37          # 131 PP = 1 : REM player previous location
-5541,5546,132,180,6           # 132 RETURN
+2049,2116,1,0,65              # 1 REM text adventure game by chris garrett 2024 retrogamecoders.com
+2117,2125,2,2,10              # 2 GOSUB 97
+2126,2201,3,5,96              # 3 IF PL=0 THEN PL = PP : REM player location can not be 00 as that is inventory
+2202,2263,4,6,91              # 4 PP = PL : REM backup the location in case illegal move made
+2264,2288,5,7,49              # 5 PRINT "{147}{5}{18}";LO$(PL);" {146}"
+2289,2297,6,8,8               # 6 PRINT ""
+2298,2324,7,9,42              # 7 PRINT "{5}Objects visible:{154}"
+2325,2408,8,10,106            # 8 FOR I = 0 TO OC-1 : REM check object locations from the first object to object count
+2409,2491,9,11,91             # 9 IF OL(I) = PL THEN PRINT ". ";OB$(I) : REM if the object is in current location print it
+2492,2499,10,12,6             # 10 NEXT I
+2500,2508,11,13,8             # 11 PRINT ""
+2509,2535,12,14,42            # 12 PRINT "{5}exits available:{154}"
+2536,2566,13,15,28            # 13 REM check each possible exit
+2567,2607,14,16,47            # 14 IF MID$(EX$(PL),1,2)<>"00" THEN PRINT ". north"
+2608,2647,15,17,46            # 15 IF MID$(EX$(PL),3,2)<>"00" THEN PRINT ". east"
+2648,2688,16,18,47            # 16 IF MID$(EX$(PL),5,2)<>"00" THEN PRINT ". south"
+2689,2728,17,19,46            # 17 IF MID$(EX$(PL),7,2)<>"00" THEN PRINT ". west"
+2729,2766,18,20,44            # 18 IF MID$(EX$(PL),9,2)<>"00" THEN PRINT ". up"
+2767,2807,19,21,47            # 19 IF MID$(EX$(PL),11,2)<>"00" THEN PRINT ". down"
+2808,2817,20,25,5             # 20 I$=""
+2818,2826,21,26,8             # 21 PRINT ""
+2827,2846,22,27,36            # 22 PRINT "{158}what now?{154}"
+2847,2855,23,28,8             # 23 INPUT I$
+2856,2884,24,29,42            # 24 IF LEFT$(I$,3) = "go " THEN GOSUB 36
+2885,2906,25,30,30            # 25 IF I$ = "n" THEN GOSUB 40
+2907,2928,26,31,30            # 26 IF I$ = "e" THEN GOSUB 40
+2929,2950,27,32,30            # 27 IF I$ = "s" THEN GOSUB 40
+2951,2972,28,33,30            # 28 IF I$ = "w" THEN GOSUB 40
+2973,2994,29,34,30            # 29 IF I$ = "u" THEN GOSUB 40
+2995,3016,30,35,30            # 30 IF I$ = "d" THEN GOSUB 40
+3017,3043,31,36,41            # 31 IF LEFT$(I$,1) = "i" THEN GOSUB 52
+3044,3073,32,37,44            # 32 IF LEFT$(I$,4) = "get " THEN GOSUB 63
+3074,3104,33,38,46            # 33 IF LEFT$(I$,5) = "drop " THEN GOSUB 83
+3105,3132,34,39,39            # 34 IF LEFT$(I$,1) = "q" THEN GOTO 144
+3133,3140,35,41,16            # 35 GOTO 3
+3141,3192,36,44,49            # 36 REM fully written out move (eg. GO SOUTH or GO S)
+3193,3211,37,45,17            # 37 D$ = MID$(I$,4,1)
+3212,3220,38,46,11            # 38 GOSUB 44
+3221,3226,39,47,6             # 39 RETURN
+3227,3257,40,50,28            # 40 REM abbreviated move (eg. N)
+3258,3269,41,51,7             # 41 D$ = I$
+3270,3278,42,52,11            # 42 GOSUB 44
+3279,3284,43,53,6             # 43 RETURN
+3285,3325,44,57,38            # 44 REM go to the new player location (PL)
+3326,3365,45,58,44            # 45 IF D$ = "n" THEN PL = VAL(MID$(EX$(PL),1,2))
+3366,3405,46,59,44            # 46 IF D$ = "e" THEN PL = VAL(MID$(EX$(PL),3,2))
+3406,3445,47,60,44            # 47 IF D$ = "s" THEN PL = VAL(MID$(EX$(PL),5,2))
+3446,3485,48,61,44            # 48 IF D$ = "w" THEN PL = VAL(MID$(EX$(PL),7,2))
+3486,3525,49,62,44            # 49 IF D$ = "u" THEN PL = VAL(MID$(EX$(PL),9,2))
+3526,3566,50,63,45            # 50 IF D$ = "d" THEN PL = VAL(MID$(EX$(PL),11,2))
+3567,3572,51,65,6             # 51 RETURN
+3573,3609,52,68,34            # 52 REM objects the player is carrying
+3610,3618,53,69,8             # 53 PRINT ""
+3619,3654,54,70,35            # 54 PRINT "Objects in your possession:"
+3655,3737,55,71,105           # 55 FOR I = 0 TO OC-1 : REM check object location from the first object to object count
+3738,3807,56,72,79            # 56 IF OL(I) = 0 THEN PRINT ". ";OB$(I) : REM if the object is in zero print it
+3808,3815,57,73,6             # 57 NEXT I
+3816,3824,58,74,8             # 58 PRINT ""
+3825,3857,59,77,37            # 59 PRINT "{159}press a key to continue"
+3858,3866,60,79,6             # 60 GET I$
+3867,3883,61,80,27            # 61 IF I$="" GOTO 60
+3884,3889,62,81,6             # 62 RETURN
+3890,3953,63,84,61            # 63 REM allow player to get available object and put in inventory
+3954,3968,64,85,10            # 64 F=-1:R$=""
+3969,4012,65,86,52            # 65 R$ = MID$(I$,5) : REM r$ is object requested
+4013,4036,66,88,21            # 66 REM get the object id
+4037,4053,67,89,15            # 67 FOR I = 1 TO OC
+4054,4093,68,90,41            # 68 IF OB$(I-1) = R$ THEN F=I : REM it exists
+4094,4101,69,91,6             # 69 NEXT I
+4102,4122,70,93,18            # 70 REM can't find it?
+4123,4131,71,94,8             # 71 PRINT ""
+4132,4208,72,95,92            # 72 IF F=-1 THEN PRINT "can't see that here, check spelling and be specific?" : GOTO 80
+4209,4232,73,96,29            # 73 IF OL(F-1)=PL THEN GOTO 77
+4233,4283,74,97,66            # 74 IF OL(F-1)=0 THEN PRINT "you already have that" : GOTO 80
+4284,4320,75,98,36            # 75 PRINT "I can't see that around here"
+4321,4329,76,99,16            # 76 GOTO 80
+4330,4398,77,102,66           # 77 OL(F-1)=0 : REM set the object location to inventory aka room zero
+4399,4407,78,103,8            # 78 PRINT ""
+4408,4434,79,104,26           # 79 PRINT "got the ";OBJ$(F-1)
+4435,4443,80,107,8            # 80 PRINT ""
+4444,4452,81,108,13           # 81 GOSUB 59
+4453,4458,82,109,6            # 82 RETURN
+4459,4500,83,113,39           # 83 REM drop objects the player is carrying
+4501,4515,84,115,10           # 84 F=-1:R$=""
+4516,4559,85,116,52           # 85 R$ = MID$(I$,6) : REM r$ is object requested
+4560,4583,86,118,21           # 86 REM get the object id
+4584,4600,87,119,15           # 87 FOR I = 1 TO OC
+4601,4640,88,120,41           # 88 IF OB$(I-1) = R$ THEN F=I : REM it exists
+4641,4648,89,121,6            # 89 NEXT I
+4649,4669,90,123,18           # 90 REM can't find it?
+4670,4678,91,124,8            # 91 PRINT ""
+4679,4759,92,125,97           # 92 IF F=-1 THEN PRINT "can't seem to find that, check spelling and be specific?" : GOTO 95
+4760,4814,93,126,71           # 93 IF OL(F-1)=0 THEN PRINT "ok, dropped!" : OL(F-1)=PL : GOTO 95
+4815,4861,94,127,46           # 94 PRINT "no can do, are you sure you have that?"
+4862,4870,95,131,13           # 95 GOSUB 59
+4871,4876,96,132,6            # 96 RETURN
+4877,4904,97,136,25           # 97 REM objects and locations
+4905,4932,98,137,25           # 98 REM =====================
+4933,4946,99,138,11           # 99 REM objects
+4947,4960,100,139,11          # 100 DIM OB$(20)
+4961,4981,101,140,16          # 101 OB$(0)="matches"
+4982,5004,102,141,18          # 102 OB$(1)="brass key"
+5005,5032,103,142,25          # 103 OC = 2 : REM object count
+5033,5048,104,144,13          # 104 REM locations
+5049,5062,105,145,11          # 105 DIM LO$(20)
+5063,5085,106,146,18          # 106 LO$(0)="inventory"
+5086,5113,107,147,23          # 107 LO$(1)="grand entrance"
+5114,5132,108,148,14          # 108 LO$(2)="study"
+5133,5158,109,149,23          # 109 RC = 3 : REM room count
+5159,5183,110,151,22          # 110 REM object's locations
+5184,5216,111,152,30          # 111 REM loc 0 = player's inventory
+5217,5229,112,153,10          # 112 DIM OL(20)
+5230,5241,113,154,7           # 113 OL(0)=0
+5242,5253,114,155,7           # 114 OL(1)=1
+5254,5270,115,157,14          # 115 REM exit names
+5271,5283,116,158,10          # 116 DIM EN$(6)
+5284,5302,117,159,14          # 117 EN$(0)="north"
+5303,5320,118,160,13          # 118 EN$(1)="east"
+5321,5339,119,161,14          # 119 EN$(2)="south"
+5340,5357,120,162,13          # 120 EN$(3)="west"
+5358,5373,121,163,11          # 121 EN$(4)="up"
+5374,5391,122,164,13          # 122 EN$(5)="down"
+5392,5408,123,167,14          # 123 REM room exits
+5409,5426,124,168,15          # 124 REM N E S W U D
+5427,5440,125,169,11          # 125 DIM EX$(20)
+5441,5466,126,170,21          # 126 EX$(1)="000002000000"
+5467,5492,127,171,21          # 127 EX$(2)="010000000000"
+5493,5518,128,172,21          # 128 EX$(3)="000000000000"
+5519,5531,129,176,10          # 129 REM player
+5532,5544,130,177,10          # 130 REM ======
+5545,5575,131,178,28          # 131 PL = 1 : REM player location
+5576,5615,132,179,37          # 132 PP = 1 : REM player previous location
+5616,5641,133,183,27          # 133 POKE 53281,6 : POKE 53280,6
+5642,5671,134,184,35          # 134 ? "{147}{5}text adventure game"
+5672,5696,135,185,20          # 135 ? "by chris garrett"
+5697,5709,136,186,8           # 136 ? "2024"
+5710,5717,137,187,3           # 137 ?""
+5718,5746,138,188,34          # 138 ? "{155}retrogamecoders.com"
+5747,5754,139,189,3           # 139 ?""
+5755,5762,140,190,3           # 140 ?""
+5763,5770,141,191,3           # 141 ?""
+5771,5779,142,193,13          # 142 GOSUB 59
+5780,5785,143,195,6           # 143 RETURN
+5786,5812,144,198,28          # 144 POKE 53281,6 : POKE 53280,14
+5813,5831,145,199,32          # 145 PRINT "{147}{154}Goodbye!"
+5832,5840,146,200,8           # 146 PRINT ""
+5841,5849,147,201,8           # 147 PRINT ""
