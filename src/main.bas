@@ -33,18 +33,20 @@ if i$ = "d" then gosub abrmove
 goto displayroom
 
 fullmove:
+rem fully written out move (eg. GO SOUTH or GO S)
 d$ = mid$(i$,4,1)
 gosub moves
 return
 
 abrmove:
+rem abbreviated move (eg. N)
 d$ = i$
 gosub moves
 return
 
 
 MOVES:
-
+rem go to the new player location (PL)
 if d$ = "n" then pl = val(mid$(ex$(pl),1,2))
 if d$ = "e" then pl = val(mid$(ex$(pl),3,2))
 if d$ = "s" then pl = val(mid$(ex$(pl),5,2))
