@@ -75,7 +75,7 @@ next i
 print ""
 
 waitkey:
-print "{cyan}{rvs on}        press a key to continue          {rvs off}"
+print "{cyan}{rvs on}        press a key to continue         {rvs off}"
 waitingforkey:
 get i$
 if i$="" goto waitingforkey
@@ -183,14 +183,14 @@ pp = 1 : rem player previous location
 
 WELCOMESCREEN:
 POKE 53281,6 : POKE 53280,6
-? "{clr}{white}"
-? "         murder house"
-? "     a text adventure game"
-? "       by chris garrett"
-? "             2024"
+? "{clr}{white}"                          :
+? "             murder house"
+? "         a text adventure game"
+? "           by chris garrett"
+? "                 2024"
 ?""
 ? "{lightgrey}"
-? "      retrogamecoders.com"
+? "          retrogamecoders.com"
 ?""
 ?""
 ?""
