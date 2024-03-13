@@ -1,0 +1,2 @@
+REM *** BASIC PROGRAM ***
+PRINT "{clr}HELLO, WORLD!"
