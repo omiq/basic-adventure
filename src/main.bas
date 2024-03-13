@@ -38,6 +38,7 @@ if left$(i$,1) = "i" then gosub inventory
 if left$(i$,4) = "get " then gosub getobject
 if left$(i$,5) = "take " then gosub takeobject
 if left$(i$,5) = "drop " then gosub dropobject
+if left$(i$,8) = "examine " then gosub examineobject
 if left$(i$,4) = "look" then ?"":print rd$(pl):?"":gosub waitkey
 if left$(i$,1) = "q" then goto gameover
 
@@ -141,6 +142,28 @@ donedropping:
 gosub waitkey
 RETURN
 
+examineobject:
+rem examine objects the player is carrying
+
+f=-1:r$=""
+r$ = mid$(i$,9)         : rem r$ is object requested
+
+rem get the object id
+for i = 1 to oc 
+if ob$(i-1) = r$ then f=i : rem it exists
+next i
+
+rem can't find it? 
+print ""
+if f=-1 then print "can't seem to find that, check spelling and be specific?" : goto doneexamining
+if ol(f-1)=0 then print od$(f-1) : goto doneexamining
+print "no can do, are you sure you have that?"
+
+
+doneexamining:
+gosub waitkey
+RETURN
+
 
 INIT: 
 rem objects and locations 
@@ -150,6 +173,12 @@ oc = 2 : rem object count
 dim ob$(oc)
 ob$(0)="matches"
 ob$(1)="brass key"
+
+rem object descriptions
+dim od$(oc)
+od$(0)="a small book of promotional matches advertising patty's bar and grill, north lakes"
+od$(1)="a large and heavy key made out of brass."
+
 
 rem locations
 rc = 3 : rem room count
