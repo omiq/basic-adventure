@@ -1,6 +1,8 @@
 # git ignores
 *~
-build
+.DS_Store
 .vscode/c_cpp_properties.json
 .vscode/settings.json
-.DS_Store
+.ninja_log
+.bmap
+.ninja

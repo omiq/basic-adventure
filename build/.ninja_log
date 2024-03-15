@@ -1,8 +1,3 @@
 # ninja log v5
-<<<<<<< HEAD
-1	426	1710353314659398819	/home/chrisg/github/basic-adventure/build/basic-adventure.prg	9d1f996847158e36
-1	426	1710353314659398819	/home/chrisg/github/basic-adventure/build/basic-adventure.bmap	9d1f996847158e36
-=======
-1	335	1710519964000000000	/Volumes/External/GitHub/basic-adventure/build/basic-adventure.prg	13134770baca7dbc
-1	335	1710519964000000000	/Volumes/External/GitHub/basic-adventure/build/basic-adventure.bmap	13134770baca7dbc
->>>>>>> 39cbe5f (ignore)
+1	144	1710534160000000000	/Volumes/External/GitHub/basic-adventure/build/basic-adventure.prg	13134770baca7dbc
+1	144	1710534160000000000	/Volumes/External/GitHub/basic-adventure/build/basic-adventure.bmap	13134770baca7dbc
