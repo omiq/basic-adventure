@@ -6,20 +6,20 @@
 ninja_required_version = 1.3
 toolkit = basic
 machine = 
-basedir = /home/chrisg/github/basic-adventure
-builddir = /home/chrisg/github/basic-adventure/build
+basedir = /Volumes/External/GitHub/basic-adventure
+builddir = /Volumes/External/GitHub/basic-adventure/build
 
 project = basic-adventure
-config = /home/chrisg/github/basic-adventure/project-config.json
-target = /home/chrisg/github/basic-adventure/build/basic-adventure.prg
-dbg_out = /home/chrisg/github/basic-adventure/build/basic-adventure.bmap
+config = /Volumes/External/GitHub/basic-adventure/project-config.json
+target = /Volumes/External/GitHub/basic-adventure/build/basic-adventure.prg
+dbg_out = /Volumes/External/GitHub/basic-adventure/build/basic-adventure.bmap
 python_exe = python3
 java_exe = java
-rc_exe = /home/chrisg/.vscode/extensions/rosc.vs64-2.5.3/tools/rc.py
+rc_exe = /Users/chrisg/.vscode/extensions/rosc.vs64-2.5.3/tools/rc.py
 rc_flags = --format basic --config "$config"
-bc_exe = /home/chrisg/.vscode/extensions/rosc.vs64-2.5.3/tools/bc.py
+bc_exe = /Users/chrisg/.vscode/extensions/rosc.vs64-2.5.3/tools/bc.py
 bc_flags = --map "$dbg_out"
-includes = -I /home/chrisg/github/basic-adventure -I /home/chrisg/github/basic-adventure/build
+includes = -I /Volumes/External/GitHub/basic-adventure -I /Volumes/External/GitHub/basic-adventure/build
 
 rule res
     command = $python_exe $rc_exe $rc_flags -o $out $in
@@ -28,7 +28,7 @@ rule bas
     command = $python_exe $bc_exe $bc_flags $includes -o $out $in
 
 
-build $target | $dbg_out : bas /home/chrisg/github/basic-adventure/src/main.bas | 
+build $target | $dbg_out : bas /Volumes/External/GitHub/basic-adventure/src/main.bas | 
 
 build all: phony $target
 default all

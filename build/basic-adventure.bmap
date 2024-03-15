@@ -3,7 +3,7 @@
 # generated file: DO NOT EDIT!
 ################################################################################
 
-/home/chrisg/github/basic-adventure/src/main.bas
+/Volumes/External/GitHub/basic-adventure/src/main.bas
 2049,2116,1,0,65              # 1 REM text adventure game by chris garrett 2024 retrogamecoders.com
 2117,2126,2,2,10              # 2 GOSUB 118
 2127,2202,3,5,96              # 3 IF PL=0 THEN PL = PP : REM player location can not be 00 as that is inventory
