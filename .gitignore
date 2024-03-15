@@ -6,3 +6,5 @@
 .ninja_log
 .bmap
 .ninja
+build/basic-adventure.bmap
+build/build.ninja
