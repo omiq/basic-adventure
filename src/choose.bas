@@ -102,6 +102,7 @@ goto FIN
 
 newscreen:
 q$="": a$="": rem reset variables to blank
+POKE 53281,6 : POKE 53280,6: rem screen colours
 rv$=chr$(18): ro$=chr$(146): bl$=chr$(13) + chr$(187) + chr$(32): rem reverse on and off to make listing the code easier
 print chr$(5): print chr$(147): print chr$(19);: rem clear screen, white text
 RETURN
