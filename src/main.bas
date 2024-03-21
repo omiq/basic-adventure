@@ -1,8 +1,10 @@
 rem text adventure game by chris garrett 2024 retrogamecoders.com
 
+rem set up variables etc
 gosub INIT
 
 displayroom:
+rem show room details
 gosub clrscr
 if pl=0 then pl = pp                    : rem player location can not be 00 as that is inventory
 pp = pl                                 : rem backup the location in case illegal move made
