@@ -1,9 +1,9 @@
 {
-    "name": "basic-adventure",
+    "name": "adv1",
     "description": "Project basic-adventure",
     "toolkit": "basic",
     "sources": [
-        "src/choose.bas"
+        "src/main.bas"
     ],
     "build": "debug",
     "definitions": [],
