@@ -3,16 +3,17 @@ rem text adventure game by chris garrett 2024 retrogamecoders.com
 gosub INIT
 
 displayroom:
+gosub clrscr
 if pl=0 then pl = pp                    : rem player location can not be 00 as that is inventory
 pp = pl                                 : rem backup the location in case illegal move made
-print "{clr}{white}{rvs on}";lo$(pl);" {rvs off}"
+print rv$+lo$(pl)+ro$
 print ""
-print "{white}Objects visible:{lightblue}"
+print "Objects visible:"+lb$
 for i = 0 to oc-1                       : rem check object locations from the first object to object count
 if ol(i) = pl then print ". ";ob$(i)    : rem if the object is in current location print it
 next i
 print ""
-print "{white}exits available:{lightblue}"
+print wt$+"exits available:"+lb$
 rem check each possible exit
 if mid$(ex$(pl),1,2)<>"00" then print ". north"
 if mid$(ex$(pl),3,2)<>"00" then print ". east"
@@ -25,7 +26,7 @@ if mid$(ex$(pl),11,2)<>"00" then print ". down"
 getcommand:
 i$=""
 print ""
-print "{yellow}what now?{lightblue}"
+print yl$+"what now?"+lb$
 input i$
 if left$(i$,3) = "go " then gosub fullmove
 if i$ = "n" then gosub abrmove
@@ -78,7 +79,7 @@ next i
 print ""
 
 waitkey:
-print "{cyan}{rvs on}        press a key to continue         {rvs off}"
+print cy$+rv$+"        press a key to continue         "+ro$
 waitingforkey:
 get i$
 if i$="" goto waitingforkey
@@ -165,7 +166,23 @@ gosub waitkey
 RETURN
 
 
+newscreen:
+rem clear screen and set up colours
+POKE 53281,6 : POKE 53280,6: rem screen colours
+lb$=chr$(154): wt$=chr$(5): rem light blue, white
+yl$=chr$(158): cy$=chr$(159): rem yellow and cyan
+rv$=chr$(18): ro$=chr$(146): bl$=chr$(13) + chr$(187) + chr$(32): rem reverse on and off to make listing the code easier
+
+clrscr:
+print wt$: print chr$(147): print chr$(19);: rem clear screen, white text
+RETURN
+
+
+
 INIT: 
+rem set up the game and the display
+gosub newscreen
+
 rem objects and locations 
 rem =====================
 rem objects
@@ -228,14 +245,13 @@ pp = 1 : rem player previous location
 
 
 WELCOMESCREEN:
-POKE 53281,6 : POKE 53280,6
-? "{clr}{white}"                          :
+gosub newscreen
 ? "             murder house"
 ? "         a text adventure game"
 ? "           by chris garrett"
 ? "                 2024"
 ?""
-? "{lightgrey}"
+? lg$
 ? "          retrogamecoders.com"
 ?""
 ?""
@@ -246,8 +262,9 @@ gosub waitkey
 RETURN
 
 gameover:
+gosub clrscr
 POKE 53281,6 : POKE 53280,14
-print "{clr}{lightblue}Goodbye!"
+print "Goodbye!"
 print ""
 print fre(0)
 print ""
