@@ -10,6 +10,7 @@ if pl=0 then pl = pp                    : rem player location can not be 00 as t
 pp = pl                                 : rem backup the location in case illegal move made
 print rv$+lo$(pl)+ro$
 print ""
+if pl=5 then gosub YOUWIN
 print "Objects visible:"+lb$
 for i = 0 to oc-1                       : rem check object locations from the first object to object count
 if ol(i) = pl then print ". ";ob$(i)    : rem if the object is in current location print it
@@ -185,12 +186,21 @@ next i
 rem can't find it? 
 print ""
 if f=-1 then print "can't seem to find that, check spelling and be specific?" : goto doneusing
-if ol(f-1)=0 then print od$(f-1) : goto doneusing
+if ol(f-1)=0 then gosub objectactions : goto doneusing
 print "no can do, are you sure you have that?"
 
 
 doneusing:
 gosub waitkey
+RETURN
+
+
+objectactions:
+rem actions for using objects
+if f=1 then print "you strike a match and light it, illuminating the room for a moment.":m=m-1: if m<=0 then print "You are out of matches":ol(f-1)=-1: rem remove matches from inventory
+if f=2 then if pl=4 then print "click! the door has unlocked!":ex$(4)="020005000000":ol(f-1)=-1: rem remove key from inventory
+if f=2 then if pl<>4 then print "you try to use the key, but it doesn't fit any locks here."
+
 RETURN
 
 help:
@@ -212,6 +222,18 @@ print "Type the command you want to use, or type 'h' for help."
 print ""
 gosub waitkey
 RETURN
+
+YOUWIN:
+rem show win screen
+
+gosub newscreen
+print "Congratulations! You have escaped the murder house!"
+print ""
+print "now you know where the exit is feel free to go back in and explore, just do not hang around too long!"
+print ""
+gosub waitkey
+RETURN
+
 
 newscreen:
 rem clear screen and set up colours
@@ -235,7 +257,7 @@ rem =====================
 rem objects
 oc = 2 : rem object count
 dim ob$(oc)
-ob$(0)="matches"
+ob$(0)="matches": m=6 : rem matches, 6 in inventory to start
 ob$(1)="key"
 
 rem object descriptions
@@ -243,14 +265,15 @@ dim od$(oc)
 od$(0)="a small book of promotional matches advertising patty's bar and grill, north lakes"
 od$(1)="a large and heavy key made out of brass."
 
-
 rem locations
-rc = 3 : rem room count
+rc = 5 : rem room count
 dim lo$(rc)
 lo$(0)="inventory"
 lo$(1)="dank basement"
 lo$(2)="furnace room"
 lo$(3)="service hatch"
+lo$(4)="another room?"
+lo$(5)="outside the house"
 
 rem room descriptions
 dim rd$(rc)
@@ -258,6 +281,9 @@ rd$(0)=""
 rd$(1)="a chillingly damp, bare-bricked room with poured cement floor and timber beamed ceiling. window frames are boarded along one wall."
 rd$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement."
 rd$(3)="up above the furnace, this tiny space must have been built to allow access to hvac ducting."
+rd$(4)="the dark and dusty room is empty, with a single light bulb hanging from the ceiling. there is an old wooden door on the far wall covered in cobwebs." 
+rd$(5)="outside the house, you can see the front door and a path leading to the street."
+
 
 
 rem object's locations
@@ -280,9 +306,10 @@ rem room exits
 rem     N E S W U D
 dim ex$(20)
 ex$(1)="000002000000"
-ex$(2)="010000000300"
+ex$(2)="010004000300"
 ex$(3)="000000000002"
-
+ex$(4)="020000000000"
+ex$(5)="040000000000"
 
 
 rem player
