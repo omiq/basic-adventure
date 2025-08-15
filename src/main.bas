@@ -40,10 +40,14 @@ if i$ = "d" then gosub abrmove
 if left$(i$,1) = "i" then gosub inventory
 if left$(i$,4) = "get " then gosub getobject
 if left$(i$,5) = "take " then gosub takeobject
+if left$(i$,1) = "h" then gosub help
+if left$(i$,4) = "quit" then gosub gameover
+if left$(i$,4) = "exit" then gosub gameover
 if left$(i$,5) = "drop " then gosub dropobject
 if left$(i$,8) = "examine " then gosub examineobject
 if left$(i$,4) = "look" then ?"":print rd$(pl):?"":gosub waitkey
 if left$(i$,1) = "q" then goto gameover
+if left$(i$,4) = "use " then gosub useobject
 
 goto displayroom
 
@@ -167,6 +171,47 @@ doneexamining:
 gosub waitkey
 RETURN
 
+useobject:
+rem use an object the player is carrying
+
+f=-1:r$=""
+r$ = mid$(i$,5)         : rem r$ is object requested
+
+rem get the object id
+for i = 1 to oc 
+if ob$(i-1) = r$ then f=i : rem it exists
+next i
+
+rem can't find it? 
+print ""
+if f=-1 then print "can't seem to find that, check spelling and be specific?" : goto doneusing
+if ol(f-1)=0 then print od$(f-1) : goto doneusing
+print "no can do, are you sure you have that?"
+
+
+doneusing:
+gosub waitkey
+RETURN
+
+help:
+rem show help screen
+gosub newscreen
+print "Commands:"
+print "  North, South, East, West, Up, Down"
+print "  (n, s, e, w, u, d)"
+print ""
+print "  get <object>, take <object>"
+print "  drop <object>"
+print "  examine <object>"
+print "  look"
+print "  i, inventory"
+print "  h, help"
+print "  q, quit, exit"
+print ""
+print "Type the command you want to use, or type 'h' for help."
+print ""
+gosub waitkey
+RETURN
 
 newscreen:
 rem clear screen and set up colours
@@ -191,7 +236,7 @@ rem objects
 oc = 2 : rem object count
 dim ob$(oc)
 ob$(0)="matches"
-ob$(1)="brass key"
+ob$(1)="key"
 
 rem object descriptions
 dim od$(oc)
@@ -251,7 +296,7 @@ gosub newscreen
 ? "             murder house"
 ? "         a text adventure game"
 ? "           by chris garrett"
-? "                 2024"
+? "                 2025"
 ?""
 ? lg$
 ? "          retrogamecoders.com"
