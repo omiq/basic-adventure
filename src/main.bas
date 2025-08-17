@@ -205,21 +205,24 @@ if f=2 and pl<>4 then print "you try to use the key, but it doesn't fit any lock
 RETURN
 
 help:
-rem show help screen
+rem show help screen                          :                                       :
 gosub newscreen
-print "Commands:"
+print "you have woken up in a dark and damp    basement, with no memory of how you got here."
+print ""
+print "your head is pounding and you feel      disoriented. you need to find a way out."
+print ""
+print "enter the command you want to use:"
 print "  North, South, East, West, Up, Down"
 print "  (n, s, e, w, u, d)"
 print ""
 print "  get <object>, take <object>"
 print "  drop <object>"
 print "  examine <object>"
-print "  look"
+print "  i, look"
 print "  i, inventory"
 print "  h, help"
 print "  q, quit, exit"
 print ""
-print "Type the command you want to use, or type 'h' for help."
 print ""
 gosub waitkey
 RETURN
@@ -328,6 +331,7 @@ WELCOMESCREEN:
 rem welcome screen
 gosub newscreen
 gosub INTRO
+gosub newscreen
 
 ? "             murder house"
 ? "         a text adventure game"
@@ -348,7 +352,11 @@ if i$ <> "h" and i$ <> "" then RETURN
 RETURN
 
 INTRO:
-for i = 0 to 999: read c:poke 1024+i,c : next i
+for i = 0 to 999 
+read c:
+get i$: if i$ <> "" then return
+poke 1024+i,c  
+next i
 data 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
 data 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
 data 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
@@ -376,7 +384,11 @@ data 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,
 data 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
 
 rem colour data
-for i = 0 to 999: read c:poke 55296+i,c : next i
+for i = 0 to 999: 
+read c:
+poke 55296+i,c
+get i$: if i$ <> "" then return 
+next i
 data 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
 data 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
 data 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
