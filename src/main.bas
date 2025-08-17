@@ -1,4 +1,4 @@
-rem text adventure game by chris garrett 2024 retrogamecoders.com
+rem text adventure game by chris garrett 2025 retrogamecoders.com
 
 rem set up variables etc
 gosub INIT
@@ -325,9 +325,10 @@ pp = 1 : rem player previous location
 
 
 WELCOMESCREEN:
-rem if first time show intro screen
-if fr=0 then gosub newscreen:gosub INTRO
+rem welcome screen
 gosub newscreen
+gosub INTRO
+
 ? "             murder house"
 ? "         a text adventure game"
 ? "           by chris garrett"
@@ -336,10 +337,14 @@ gosub newscreen
 ? lg$
 ? "          retrogamecoders.com"
 ?""
-?""
+?" press h for help or other key to start"
 ?""
 
-gosub waitkey
+waitforstartkey:
+get i$
+if i$="" then goto waitforstartkey
+if i$="h" then gosub help
+if i$ <> "h" and i$ <> "" then RETURN
 RETURN
 
 INTRO:
@@ -398,7 +403,6 @@ data 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14,
 data 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
 data 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 1
 
-fr=1 : rem first run flag
 gosub waitkey
 RETURN
 
