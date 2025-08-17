@@ -163,7 +163,7 @@
 7332,7369,157,216,37          # 157 PRINT "  get <object>, take <object>"
 7370,7393,158,217,23          # 158 PRINT "  drop <object>"
 7394,7420,159,218,26          # 159 PRINT "  examine <object>"
-7421,7438,160,219,17          # 160 PRINT "  i, look"
+7421,7438,160,219,17          # 160 PRINT "  l, look"
 7439,7461,161,220,22          # 161 PRINT "  i, inventory"
 7462,7479,162,221,17          # 162 PRINT "  h, help"
 7480,7503,163,222,23          # 163 PRINT "  q, quit, exit"
