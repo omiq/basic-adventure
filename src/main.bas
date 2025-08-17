@@ -197,6 +197,7 @@ RETURN
 
 objectactions:
 rem actions for using objects
+if f=1 and pl=3 then print "boom! the furnace explodes, filling the room with fire and smoke!":gosub waitkey:gosub gameover: rem matches in furnace room
 if f=1 and pl=2 then print "suddenly the furnace roars to life, filling the room with heat and light!":ex$(2)="010604000300":m=m-1: if m<=0 then print "You are out of matches":ol(f-1)=-1: return : rem remove matches from inventory
 if f=1 and pl <> 2 then print "you strike a match and light it, illuminating the room for a moment.":m=m-1: if m<=0 then print "You are out of matches":ol(f-1)=-1: rem remove matches from inventory
 if f=2 and pl=4 then print "click! the door has unlocked!":ex$(4)="020005000000":ol(f-1)=-1: rem remove key from inventory
@@ -345,7 +346,7 @@ gosub clrscr
 POKE 53281,6 : POKE 53280,14
 print "Goodbye!"
 print ""
-print fre(0)
+print "memory free",fre(0)
 print ""
 
 
