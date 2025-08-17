@@ -46,7 +46,7 @@ if left$(i$,4) = "quit" then gosub gameover
 if left$(i$,4) = "exit" then gosub gameover
 if left$(i$,5) = "drop " then gosub dropobject
 if left$(i$,8) = "examine " then gosub examineobject
-if left$(i$,4) = "look" then ?"":print rd$(pl):?"":gosub waitkey
+if left$(i$,4) = "look" or left$(i$,1) = "l" then ?"":print rd$(pl):?"":gosub waitkey
 if left$(i$,1) = "q" then goto gameover
 if left$(i$,4) = "use " then gosub useobject
 
@@ -197,10 +197,10 @@ RETURN
 
 objectactions:
 rem actions for using objects
-if f=1 then print "you strike a match and light it, illuminating the room for a moment.":m=m-1: if m<=0 then print "You are out of matches":ol(f-1)=-1: rem remove matches from inventory
-if f=2 then if pl=4 then print "click! the door has unlocked!":ex$(4)="020005000000":ol(f-1)=-1: rem remove key from inventory
-if f=2 then if pl<>4 then print "you try to use the key, but it doesn't fit any locks here."
-
+if f=1 and pl=2 then print "suddenly the furnace roars to life, filling the room with heat and light!":ex$(2)="010604000300":m=m-1: if m<=0 then print "You are out of matches":ol(f-1)=-1: return : rem remove matches from inventory
+if f=1 and pl <> 2 then print "you strike a match and light it, illuminating the room for a moment.":m=m-1: if m<=0 then print "You are out of matches":ol(f-1)=-1: rem remove matches from inventory
+if f=2 and pl=4 then print "click! the door has unlocked!":ex$(4)="020005000000":ol(f-1)=-1: rem remove key from inventory
+if f=2 and pl<>4 then print "you try to use the key, but it doesn't fit any locks here."
 RETURN
 
 help:
@@ -232,6 +232,7 @@ print ""
 print "now you know where the exit is feel free to go back in and explore, just do not hang around too long!"
 print ""
 gosub waitkey
+gosub clrscr
 RETURN
 
 
@@ -266,31 +267,34 @@ od$(0)="a small book of promotional matches advertising patty's bar and grill, n
 od$(1)="a large and heavy key made out of brass."
 
 rem locations
-rc = 5 : rem room count
+rc = 6 : rem room count
 dim lo$(rc)
 lo$(0)="inventory"
 lo$(1)="dank basement"
 lo$(2)="furnace room"
 lo$(3)="service hatch"
-lo$(4)="another room?"
+lo$(4)="a store room?"
 lo$(5)="outside the house"
+lo$(6)="cramped stairwell"
 
-rem room descriptions
+
+rem room descriptions                          :                                       :                                       :
 dim rd$(rc)
 rd$(0)=""
-rd$(1)="a chillingly damp, bare-bricked room with poured cement floor and timber beamed ceiling. window frames are boarded along one wall."
+rd$(1)="a chillingly damp, bare-bricked room    with poured cement floor and timber     beamed ceiling. window frames are       boarded along one wall."
 rd$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement."
-rd$(3)="up above the furnace, this tiny space must have been built to allow access to hvac ducting."
-rd$(4)="the dark and dusty room is empty, with a single light bulb hanging from the ceiling. there is an old wooden door on the far wall covered in cobwebs." 
+rd$(3)="up above the furnace, this tiny space   must have been built to allow access to hvac ducting."
+rd$(4)="the dark and dusty room is empty, with  a single light bulb hanging from the    ceiling. there is an old wooden door on the far wall covered in cobwebs." 
 rd$(5)="outside the house, you can see the front door and a path leading to the street."
+rd$(6)="a tiny, twisty stairwell that was       previously obscured by the dark."
 
 
 
 rem object's locations
 rem loc 0 = player's inventory
 dim ol(oc)
-ol(0)=0
-ol(1)=1
+ol(0)=0 : rem matches are in inventory at the start of the game
+ol(1)=6 : rem key is in the stairwell
 
 rem exit names
 dim en$(6)
@@ -310,6 +314,7 @@ ex$(2)="010004000300"
 ex$(3)="000000000002"
 ex$(4)="020000000000"
 ex$(5)="040000000000"
+ex$(6)="000000020000"
 
 
 rem player
