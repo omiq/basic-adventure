@@ -283,8 +283,8 @@ rem room descriptions                          :                                
 dim rd$(rc)
 rd$(0)=""
 rd$(1)="a chillingly damp, bare-bricked room    with poured cement floor and timber     beamed ceiling. window frames are       boarded along one wall."
-rd$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement."
-rd$(3)="up above the furnace, this tiny space   must have been built to allow access to hvac ducting."
+rd$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement. you smell gas."
+rd$(3)="up above the furnace, this tiny space   must have been built to allow access to hvac ducting. the smell of gas is strong here, and the furnace hums ominously."
 rd$(4)="the dark and dusty room is empty, with  a single light bulb hanging from the    ceiling. there is an old wooden door on the far wall covered in cobwebs." 
 rd$(5)="outside the house, you can see the front door and a path leading to the street."
 rd$(6)="a tiny, twisty stairwell that was       previously obscured by the dark."
