@@ -228,7 +228,7 @@ YOUWIN:
 rem show win screen
 
 gosub newscreen
-print "Congratulations! You have escaped the murder house!"
+print "Congratulations! You have escaped the   murder house!"
 print ""
 print "now you know where the exit is feel free to go back in and explore, just do not hang around too long!"
 print ""

@@ -170,94 +170,94 @@
 7300,7305,164,224,6           # 164 RETURN
 7306,7327,165,227,19          # 165 REM show win screen
 7328,7337,166,229,15          # 166 GOSUB 174
-7338,7397,167,230,59          # 167 PRINT "Congratulations! You have escaped the murder house!"
-7398,7406,168,231,8           # 168 PRINT ""
-7407,7516,169,232,109         # 169 PRINT "now you know where the exit is feel free to go back in and explore, just do not hang around too long!"
-7517,7525,170,233,8           # 170 PRINT ""
-7526,7534,171,234,13          # 171 GOSUB 70
-7535,7544,172,235,12          # 172 GOSUB 179
-7545,7550,173,236,6           # 173 RETURN
-7551,7588,174,240,35          # 174 REM clear screen and set up colours
-7589,7632,175,241,47          # 175 POKE 53281,6 : POKE 53280,6: REM screen colours
-7633,7678,176,242,49          # 176 LB$=CHR$(154): WT$=CHR$(5): REM light blue, white
-7679,7724,177,243,49          # 177 YL$=CHR$(158): CY$=CHR$(159): REM yellow and cyan
-7725,7832,178,244,120         # 178 RV$=CHR$(18): RO$=CHR$(146): BL$=CHR$(13) + CHR$(187) + CHR$(32): REM reverse on and off to make listing the code easier
-7833,7890,179,247,73          # 179 PRINT WT$: PRINT CHR$(147): PRINT CHR$(19);: REM clear screen, white text
-7891,7896,180,248,6           # 180 RETURN
-7897,7934,181,253,35          # 181 REM set up the game and the display
-7935,7944,182,254,15          # 182 GOSUB 174
-7945,7972,183,256,25          # 183 REM objects and locations
-7973,8000,184,257,25          # 184 REM =====================
-8001,8014,185,258,11          # 185 REM objects
-8015,8042,186,259,25          # 186 OC = 2 : REM object count
-8043,8056,187,260,11          # 187 DIM OB$(OC)
-8057,8119,188,261,60          # 188 OB$(0)="matches": M=6 : REM matches, 6 in inventory to start
-8120,8136,189,262,12          # 189 OB$(1)="key"
-8137,8162,190,264,23          # 190 REM object descriptions
-8163,8176,191,265,11          # 191 DIM OD$(OC)
-8177,8272,192,266,91          # 192 OD$(0)="a small book of promotional matches advertising patty's bar and grill, north lakes"
-8273,8326,193,267,49          # 193 OD$(1)="a large and heavy key made out of brass."
-8327,8342,194,269,13          # 194 REM locations
-8343,8368,195,270,23          # 195 RC = 6 : REM room count
-8369,8382,196,271,11          # 196 DIM LO$(RC)
-8383,8405,197,272,18          # 197 LO$(0)="inventory"
-8406,8432,198,273,22          # 198 LO$(1)="dank basement"
-8433,8458,199,274,21          # 199 LO$(2)="furnace room"
-8459,8485,200,275,22          # 200 LO$(3)="service hatch"
-8486,8512,201,276,22          # 201 LO$(4)="a store room?"
-8513,8543,202,277,26          # 202 LO$(5)="outside the house"
-8544,8574,203,278,26          # 203 LO$(6)="cramped stairwell"
-8575,8704,204,281,128         # 204 REM room descriptions                          :                                       :                                       
-8705,8718,205,282,11          # 205 DIM RD$(RC)
-8719,8732,206,283,9           # 206 RD$(0)=""
-8733,8889,207,284,152         # 207 RD$(1)="a chillingly damp, bare-bricked room    with poured cement floor and timber     beamed ceiling. window frames are       boarded along one wall."
-8890,9061,208,285,167         # 208 RD$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement. you smell gas."
-9062,9233,209,286,167         # 209 RD$(3)="up above the furnace, this tiny space   must have been built to allow access to hvac ducting. the smell of gas is strong here, and the furnace hums ominously."
-9234,9399,210,287,161         # 210 RD$(4)="the dark and dusty room is empty, with  a single light bulb hanging from the    ceiling. there is an old wooden door on the far wall covered in cobwebs."
-9400,9492,211,288,88          # 211 RD$(5)="outside the house, you can see the front door and a path leading to the street."
-9493,9578,212,289,81          # 212 RD$(6)="a tiny, twisty stairwell that was       previously obscured by the dark."
-9579,9603,213,293,22          # 213 REM object's locations
-9604,9636,214,294,30          # 214 REM loc 0 = player's inventory
-9637,9649,215,295,10          # 215 DIM OL(OC)
-9650,9715,216,296,63          # 216 OL(0)=0 : REM matches are in inventory at the start of the game
-9716,9755,217,297,37          # 217 OL(1)=6 : REM key is in the stairwell
-9756,9772,218,299,14          # 218 REM exit names
-9773,9785,219,300,10          # 219 DIM EN$(6)
-9786,9804,220,301,14          # 220 EN$(0)="north"
-9805,9822,221,302,13          # 221 EN$(1)="east"
-9823,9841,222,303,14          # 222 EN$(2)="south"
-9842,9859,223,304,13          # 223 EN$(3)="west"
-9860,9875,224,305,11          # 224 EN$(4)="up"
-9876,9893,225,306,13          # 225 EN$(5)="down"
-9894,9910,226,309,14          # 226 REM room exits
-9911,9932,227,310,19          # 227 REM     N E S W U D
-9933,9946,228,311,11          # 228 DIM EX$(20)
-9947,9972,229,312,21          # 229 EX$(1)="000002000000"
-9973,9998,230,313,21          # 230 EX$(2)="010004000300"
-9999,10024,231,314,21         # 231 EX$(3)="000000000002"
-10025,10050,232,315,21        # 232 EX$(4)="020000000000"
-10051,10076,233,316,21        # 233 EX$(5)="040000000000"
-10077,10102,234,317,21        # 234 EX$(6)="000000020000"
-10103,10115,235,320,10        # 235 REM player
-10116,10128,236,321,10        # 236 REM ======
-10129,10159,237,322,28        # 237 PL = 1 : REM player location
-10160,10199,238,323,37        # 238 PP = 1 : REM player previous location
-10200,10209,239,327,15        # 239 GOSUB 174
-10210,10243,240,328,29        # 240 ? "             murder house"
-10244,10282,241,329,34        # 241 ? "         a text adventure game"
-10283,10318,242,330,31        # 242 ? "           by chris garrett"
-10319,10348,243,331,25        # 243 ? "                 2025"
-10349,10356,244,332,3         # 244 ?""
-10357,10366,245,333,5         # 245 ? LG$
-10367,10404,246,334,33        # 246 ? "          retrogamecoders.com"
-10405,10412,247,335,3         # 247 ?""
-10413,10420,248,336,3         # 248 ?""
-10421,10428,249,337,3         # 249 ?""
-10429,10437,250,339,13        # 250 GOSUB 70
-10438,10443,251,341,6         # 251 RETURN
-10444,10453,252,344,12        # 252 GOSUB 179
-10454,10480,253,345,28        # 253 POKE 53281,6 : POKE 53280,14
-10481,10497,254,346,16        # 254 PRINT "Goodbye!"
-10498,10506,255,347,8         # 255 PRINT ""
-10507,10531,256,348,26        # 256 PRINT "memory free",FRE(0)
-10532,10540,257,349,8         # 257 PRINT ""
+7338,7399,167,230,61          # 167 PRINT "Congratulations! You have escaped the   murder house!"
+7400,7408,168,231,8           # 168 PRINT ""
+7409,7518,169,232,109         # 169 PRINT "now you know where the exit is feel free to go back in and explore, just do not hang around too long!"
+7519,7527,170,233,8           # 170 PRINT ""
+7528,7536,171,234,13          # 171 GOSUB 70
+7537,7546,172,235,12          # 172 GOSUB 179
+7547,7552,173,236,6           # 173 RETURN
+7553,7590,174,240,35          # 174 REM clear screen and set up colours
+7591,7634,175,241,47          # 175 POKE 53281,6 : POKE 53280,6: REM screen colours
+7635,7680,176,242,49          # 176 LB$=CHR$(154): WT$=CHR$(5): REM light blue, white
+7681,7726,177,243,49          # 177 YL$=CHR$(158): CY$=CHR$(159): REM yellow and cyan
+7727,7834,178,244,120         # 178 RV$=CHR$(18): RO$=CHR$(146): BL$=CHR$(13) + CHR$(187) + CHR$(32): REM reverse on and off to make listing the code easier
+7835,7892,179,247,73          # 179 PRINT WT$: PRINT CHR$(147): PRINT CHR$(19);: REM clear screen, white text
+7893,7898,180,248,6           # 180 RETURN
+7899,7936,181,253,35          # 181 REM set up the game and the display
+7937,7946,182,254,15          # 182 GOSUB 174
+7947,7974,183,256,25          # 183 REM objects and locations
+7975,8002,184,257,25          # 184 REM =====================
+8003,8016,185,258,11          # 185 REM objects
+8017,8044,186,259,25          # 186 OC = 2 : REM object count
+8045,8058,187,260,11          # 187 DIM OB$(OC)
+8059,8121,188,261,60          # 188 OB$(0)="matches": M=6 : REM matches, 6 in inventory to start
+8122,8138,189,262,12          # 189 OB$(1)="key"
+8139,8164,190,264,23          # 190 REM object descriptions
+8165,8178,191,265,11          # 191 DIM OD$(OC)
+8179,8274,192,266,91          # 192 OD$(0)="a small book of promotional matches advertising patty's bar and grill, north lakes"
+8275,8328,193,267,49          # 193 OD$(1)="a large and heavy key made out of brass."
+8329,8344,194,269,13          # 194 REM locations
+8345,8370,195,270,23          # 195 RC = 6 : REM room count
+8371,8384,196,271,11          # 196 DIM LO$(RC)
+8385,8407,197,272,18          # 197 LO$(0)="inventory"
+8408,8434,198,273,22          # 198 LO$(1)="dank basement"
+8435,8460,199,274,21          # 199 LO$(2)="furnace room"
+8461,8487,200,275,22          # 200 LO$(3)="service hatch"
+8488,8514,201,276,22          # 201 LO$(4)="a store room?"
+8515,8545,202,277,26          # 202 LO$(5)="outside the house"
+8546,8576,203,278,26          # 203 LO$(6)="cramped stairwell"
+8577,8706,204,281,128         # 204 REM room descriptions                          :                                       :                                       
+8707,8720,205,282,11          # 205 DIM RD$(RC)
+8721,8734,206,283,9           # 206 RD$(0)=""
+8735,8891,207,284,152         # 207 RD$(1)="a chillingly damp, bare-bricked room    with poured cement floor and timber     beamed ceiling. window frames are       boarded along one wall."
+8892,9063,208,285,167         # 208 RD$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement. you smell gas."
+9064,9235,209,286,167         # 209 RD$(3)="up above the furnace, this tiny space   must have been built to allow access to hvac ducting. the smell of gas is strong here, and the furnace hums ominously."
+9236,9401,210,287,161         # 210 RD$(4)="the dark and dusty room is empty, with  a single light bulb hanging from the    ceiling. there is an old wooden door on the far wall covered in cobwebs."
+9402,9494,211,288,88          # 211 RD$(5)="outside the house, you can see the front door and a path leading to the street."
+9495,9580,212,289,81          # 212 RD$(6)="a tiny, twisty stairwell that was       previously obscured by the dark."
+9581,9605,213,293,22          # 213 REM object's locations
+9606,9638,214,294,30          # 214 REM loc 0 = player's inventory
+9639,9651,215,295,10          # 215 DIM OL(OC)
+9652,9717,216,296,63          # 216 OL(0)=0 : REM matches are in inventory at the start of the game
+9718,9757,217,297,37          # 217 OL(1)=6 : REM key is in the stairwell
+9758,9774,218,299,14          # 218 REM exit names
+9775,9787,219,300,10          # 219 DIM EN$(6)
+9788,9806,220,301,14          # 220 EN$(0)="north"
+9807,9824,221,302,13          # 221 EN$(1)="east"
+9825,9843,222,303,14          # 222 EN$(2)="south"
+9844,9861,223,304,13          # 223 EN$(3)="west"
+9862,9877,224,305,11          # 224 EN$(4)="up"
+9878,9895,225,306,13          # 225 EN$(5)="down"
+9896,9912,226,309,14          # 226 REM room exits
+9913,9934,227,310,19          # 227 REM     N E S W U D
+9935,9948,228,311,11          # 228 DIM EX$(20)
+9949,9974,229,312,21          # 229 EX$(1)="000002000000"
+9975,10000,230,313,21         # 230 EX$(2)="010004000300"
+10001,10026,231,314,21        # 231 EX$(3)="000000000002"
+10027,10052,232,315,21        # 232 EX$(4)="020000000000"
+10053,10078,233,316,21        # 233 EX$(5)="040000000000"
+10079,10104,234,317,21        # 234 EX$(6)="000000020000"
+10105,10117,235,320,10        # 235 REM player
+10118,10130,236,321,10        # 236 REM ======
+10131,10161,237,322,28        # 237 PL = 1 : REM player location
+10162,10201,238,323,37        # 238 PP = 1 : REM player previous location
+10202,10211,239,327,15        # 239 GOSUB 174
+10212,10245,240,328,29        # 240 ? "             murder house"
+10246,10284,241,329,34        # 241 ? "         a text adventure game"
+10285,10320,242,330,31        # 242 ? "           by chris garrett"
+10321,10350,243,331,25        # 243 ? "                 2025"
+10351,10358,244,332,3         # 244 ?""
+10359,10368,245,333,5         # 245 ? LG$
+10369,10406,246,334,33        # 246 ? "          retrogamecoders.com"
+10407,10414,247,335,3         # 247 ?""
+10415,10422,248,336,3         # 248 ?""
+10423,10430,249,337,3         # 249 ?""
+10431,10439,250,339,13        # 250 GOSUB 70
+10440,10445,251,341,6         # 251 RETURN
+10446,10455,252,344,12        # 252 GOSUB 179
+10456,10482,253,345,28        # 253 POKE 53281,6 : POKE 53280,14
+10483,10499,254,346,16        # 254 PRINT "Goodbye!"
+10500,10508,255,347,8         # 255 PRINT ""
+10509,10533,256,348,26        # 256 PRINT "memory free",FRE(0)
+10534,10542,257,349,8         # 257 PRINT ""
