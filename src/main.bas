@@ -49,7 +49,6 @@ if left$(i$,8) = "examine " then gosub examineobject
 if left$(i$,4) = "look" or left$(i$,1) = "l" then ?"":print rd$(pl):?"":gosub waitkey
 if left$(i$,1) = "q" then goto gameover
 if left$(i$,4) = "use " then gosub useobject
-
 goto displayroom
 
 fullmove:

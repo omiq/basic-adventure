@@ -49,287 +49,287 @@
 3353,3416,43,48,85            # 43 IF LEFT$(I$,4) = "look" OR LEFT$(I$,1) = "l" THEN ?"":PRINT RD$(PL):?"":GOSUB 70
 3417,3444,44,49,39            # 44 IF LEFT$(I$,1) = "q" THEN goto 324
 3445,3475,45,50,44            # 45 IF LEFT$(I$,4) = "use " THEN gosub 126
-3476,3483,46,52,16            # 46 GOTO 4
-3484,3535,47,55,49            # 47 REM fully written out move (eg. GO SOUTH or GO S)
-3536,3554,48,56,17            # 48 D$ = MID$(I$,4,1)
-3555,3563,49,57,11            # 49 GOSUB 55
-3564,3569,50,58,6             # 50 RETURN
-3570,3600,51,61,28            # 51 REM abbreviated move (eg. N)
-3601,3612,52,62,7             # 52 D$ = I$
-3613,3621,53,63,11            # 53 GOSUB 55
-3622,3627,54,64,6             # 54 RETURN
-3628,3668,55,68,38            # 55 REM go to the new player location (PL)
-3669,3708,56,69,44            # 56 IF D$ = "n" THEN pl = VAL(MID$(EX$(PL),1,2))
-3709,3748,57,70,44            # 57 IF D$ = "e" THEN pl = VAL(MID$(EX$(PL),3,2))
-3749,3788,58,71,44            # 58 IF D$ = "s" THEN pl = VAL(MID$(EX$(PL),5,2))
-3789,3828,59,72,44            # 59 IF D$ = "w" THEN pl = VAL(MID$(EX$(PL),7,2))
-3829,3868,60,73,44            # 60 IF D$ = "u" THEN pl = VAL(MID$(EX$(PL),9,2))
-3869,3909,61,74,45            # 61 IF D$ = "d" THEN pl = VAL(MID$(EX$(PL),11,2))
-3910,3915,62,76,6             # 62 RETURN
-3916,3952,63,79,34            # 63 REM objects the player is carrying
-3953,3961,64,80,8             # 64 PRINT ""
-3962,3997,65,81,35            # 65 PRINT "Objects in your possession:"
-3998,4080,66,82,105           # 66 FOR I = 0 TO OC-1 : REM check object location from the first object to object count
-4081,4150,67,83,79            # 67 IF OL(I) = 0 THEN PRINT ". ";OB$(I) : REM if the object is in zero print it
-4151,4158,68,84,6             # 68 NEXT I
-4159,4167,69,85,8             # 69 PRINT ""
-4168,4228,70,88,60            # 70 PRINT CY$+RV$+"        press a key to continue         "+RO$
-4229,4237,71,90,6             # 71 GET I$
-4238,4254,72,91,27            # 72 IF I$="" GOTO 71
-4255,4260,73,92,6             # 73 RETURN
-4261,4292,74,95,29            # 74 REM alternative action to get
-4293,4307,75,96,10            # 75 F=-1:R$=""
-4308,4351,76,97,52            # 76 R$ = MID$(I$,6) : REM r$ is object requested
-4352,4360,77,98,13            # 77 GOTO 81
-4361,4424,78,101,61           # 78 REM allow player to get available object and put in inventory
-4425,4439,79,102,10           # 79 F=-1:R$=""
-4440,4483,80,103,52           # 80 R$ = MID$(I$,5) : REM r$ is object requested
-4484,4507,81,106,21           # 81 REM get the object id
-4508,4524,82,107,15           # 82 FOR I = 1 TO OC
-4525,4564,83,108,41           # 83 IF OB$(I-1) = R$ THEN f=I : REM it exists
-4565,4572,84,109,6            # 84 NEXT I
-4573,4593,85,111,18           # 85 REM can't find it?
-4594,4602,86,112,8            # 86 PRINT ""
-4603,4679,87,113,92           # 87 IF F=-1 THEN PRINT "can't see that here, check spelling and be specific?" : GOTO 95
-4680,4703,88,114,29           # 88 IF OL(F-1)=PL THEN goto 92
-4704,4754,89,115,66           # 89 IF OL(F-1)=0 THEN PRINT "you already have that" : GOTO 95
-4755,4791,90,116,36           # 90 PRINT "I can't see that around here"
-4792,4800,91,117,16           # 91 GOTO 95
-4801,4869,92,120,66           # 92 OL(F-1)=0 : REM set the object location to inventory aka room zero
-4870,4878,93,121,8            # 93 PRINT ""
-4879,4905,94,122,26           # 94 PRINT "got the ";OBJ$(F-1)
-4906,4914,95,125,8            # 95 PRINT ""
-4915,4923,96,126,13           # 96 GOSUB 70
-4924,4929,97,127,6            # 97 RETURN
-4930,4971,98,131,39           # 98 REM drop objects the player is carrying
-4972,4986,99,133,10           # 99 F=-1:R$=""
-4987,5030,100,134,52          # 100 R$ = MID$(I$,6) : REM r$ is object requested
-5031,5054,101,136,21          # 101 REM get the object id
-5055,5071,102,137,15          # 102 FOR I = 1 TO OC
-5072,5111,103,138,41          # 103 IF OB$(I-1) = R$ THEN f=I : REM it exists
-5112,5119,104,139,6           # 104 NEXT I
-5120,5140,105,141,18          # 105 REM can't find it?
-5141,5149,106,142,8           # 106 PRINT ""
-5150,5231,107,143,97          # 107 IF F=-1 THEN PRINT "can't seem to find that, check spelling and be specific?" : GOTO 110
-5232,5287,108,144,71          # 108 IF OL(F-1)=0 THEN PRINT "ok, dropped!" : OL(F-1)=PL : GOTO 110
-5288,5334,109,145,46          # 109 PRINT "no can do, are you sure you have that?"
-5335,5343,110,149,13          # 110 GOSUB 70
-5344,5349,111,150,6           # 111 RETURN
-5350,5394,112,153,42          # 112 REM examine objects the player is carrying
-5395,5409,113,155,10          # 113 F=-1:R$=""
-5410,5453,114,156,52          # 114 R$ = MID$(I$,9) : REM r$ is object requested
-5454,5477,115,158,21          # 115 REM get the object id
-5478,5494,116,159,15          # 116 FOR I = 1 TO OC
-5495,5534,117,160,41          # 117 IF OB$(I-1) = R$ THEN f=I : REM it exists
-5535,5542,118,161,6           # 118 NEXT I
-5543,5563,119,163,18          # 119 REM can't find it?
-5564,5572,120,164,8           # 120 PRINT ""
-5573,5654,121,165,98          # 121 IF F=-1 THEN PRINT "can't seem to find that, check spelling and be specific?" : GOTO 124
-5655,5691,122,166,53          # 122 IF OL(F-1)=0 THEN PRINT OD$(F-1) : GOTO 124
-5692,5738,123,167,46          # 123 PRINT "no can do, are you sure you have that?"
-5739,5747,124,171,13          # 124 GOSUB 70
-5748,5753,125,172,6           # 125 RETURN
-5754,5796,126,175,40          # 126 REM use an object the player is carrying
-5797,5811,127,177,10          # 127 F=-1:R$=""
-5812,5855,128,178,52          # 128 R$ = MID$(I$,5) : REM r$ is object requested
-5856,5879,129,180,21          # 129 REM get the object id
-5880,5896,130,181,15          # 130 FOR I = 1 TO OC
-5897,5936,131,182,41          # 131 IF OB$(I-1) = R$ THEN f=I : REM it exists
-5937,5944,132,183,6           # 132 NEXT I
-5945,5965,133,185,18          # 133 REM can't find it?
-5966,5974,134,186,8           # 134 PRINT ""
-5975,6056,135,187,94          # 135 IF F=-1 THEN PRINT "can't seem to find that, check spelling and be specific?" : GOTO 138
-6057,6088,136,188,54          # 136 IF OL(F-1)=0 THEN gosub 140 : GOTO 138
-6089,6135,137,189,46          # 137 PRINT "no can do, are you sure you have that?"
-6136,6144,138,193,13          # 138 GOSUB 70
-6145,6150,139,194,6           # 139 RETURN
-6151,6182,140,198,29          # 140 REM actions for using objects
-6183,6309,141,199,152         # 141 IF F=1 AND PL=3 THEN PRINT "boom! the furnace explodes, filling the room with fire and smoke!":GOSUB 70:GOSUB 324: REM matches in furnace room
-6310,6519,142,200,230         # 142 IF F=1 AND PL=2 THEN PRINT "suddenly the furnace roars to life, filling the room with heat and light!":EX$(2)="010604000300":M=M-1: IF M<=0 THEN PRINT "You are out of matches":OL(F-1)=-1: RETURN : REM remove matches from inventory
-6520,6701,143,201,197         # 143 IF F=1 AND PL <> 2 THEN PRINT "you strike a match and light it, illuminating the room for a moment.":M=M-1: IF M<=0 THEN PRINT "You are out of matches":OL(F-1)=-1: REM remove matches from inventory
-6702,6816,144,202,122         # 144 IF F=2 AND PL=4 THEN PRINT "click! the door has unlocked!":EX$(4)="020005000000":OL(F-1)=-1: REM remove key from inventory
-6817,6899,145,203,88          # 145 IF F=2 AND PL<>4 THEN PRINT "you try to use the key, but it doesn't fit any locks here."
-6900,6905,146,204,6           # 146 RETURN
-6906,6994,147,207,87          # 147 REM show help screen                          :                                       
-6995,7004,148,208,15          # 148 GOSUB 177
-7005,7098,149,209,93          # 149 PRINT "you have woken up in a dark and damp    basement, with no memory of how you got here."
-7099,7107,150,210,8           # 150 PRINT ""
-7108,7196,151,211,88          # 151 PRINT "your head is pounding and you feel      disoriented. you need to find a way out."
-7197,7205,152,212,8           # 152 PRINT ""
-7206,7248,153,213,42          # 153 PRINT "enter the command you want to use:"
-7249,7293,154,214,44          # 154 PRINT "  North, South, East, West, Up, Down"
-7294,7322,155,215,28          # 155 PRINT "  (n, s, e, w, u, d)"
-7323,7331,156,216,8           # 156 PRINT ""
-7332,7369,157,217,37          # 157 PRINT "  get <object>, take <object>"
-7370,7393,158,218,23          # 158 PRINT "  drop <object>"
-7394,7420,159,219,26          # 159 PRINT "  examine <object>"
-7421,7438,160,220,17          # 160 PRINT "  i, look"
-7439,7461,161,221,22          # 161 PRINT "  i, inventory"
-7462,7479,162,222,17          # 162 PRINT "  h, help"
-7480,7503,163,223,23          # 163 PRINT "  q, quit, exit"
-7504,7512,164,224,8           # 164 PRINT ""
-7513,7521,165,225,8           # 165 PRINT ""
-7522,7530,166,226,13          # 166 GOSUB 70
-7531,7536,167,227,6           # 167 RETURN
-7537,7558,168,230,19          # 168 REM show win screen
-7559,7568,169,232,15          # 169 GOSUB 177
-7569,7630,170,233,61          # 170 PRINT "Congratulations! You have escaped the   murder house!"
-7631,7639,171,234,8           # 171 PRINT ""
-7640,7749,172,235,109         # 172 PRINT "now you know where the exit is feel free to go back in and explore, just do not hang around too long!"
-7750,7758,173,236,8           # 173 PRINT ""
-7759,7767,174,237,13          # 174 GOSUB 70
-7768,7777,175,238,12          # 175 GOSUB 182
-7778,7783,176,239,6           # 176 RETURN
-7784,7821,177,243,35          # 177 REM clear screen and set up colours
-7822,7865,178,244,47          # 178 POKE 53281,6 : POKE 53280,6: REM screen colours
-7866,7911,179,245,49          # 179 LB$=CHR$(154): WT$=CHR$(5): REM light blue, white
-7912,7957,180,246,49          # 180 YL$=CHR$(158): CY$=CHR$(159): REM yellow and cyan
-7958,8065,181,247,120         # 181 RV$=CHR$(18): RO$=CHR$(146): BL$=CHR$(13) + CHR$(187) + CHR$(32): REM reverse on and off to make listing the code easier
-8066,8123,182,250,73          # 182 PRINT WT$: PRINT CHR$(147): PRINT CHR$(19);: REM clear screen, white text
-8124,8129,183,251,6           # 183 RETURN
-8130,8167,184,256,35          # 184 REM set up the game and the display
-8168,8177,185,257,15          # 185 GOSUB 177
-8178,8205,186,259,25          # 186 REM objects and locations
-8206,8233,187,260,25          # 187 REM =====================
-8234,8247,188,261,11          # 188 REM objects
-8248,8275,189,262,25          # 189 OC = 2 : REM object count
-8276,8289,190,263,11          # 190 DIM OB$(OC)
-8290,8352,191,264,60          # 191 OB$(0)="matches": M=6 : REM matches, 6 in inventory to start
-8353,8369,192,265,12          # 192 OB$(1)="key"
-8370,8395,193,267,23          # 193 REM object descriptions
-8396,8409,194,268,11          # 194 DIM OD$(OC)
-8410,8505,195,269,91          # 195 OD$(0)="a small book of promotional matches advertising patty's bar and grill, north lakes"
-8506,8559,196,270,49          # 196 OD$(1)="a large and heavy key made out of brass."
-8560,8575,197,272,13          # 197 REM locations
-8576,8601,198,273,23          # 198 RC = 6 : REM room count
-8602,8615,199,274,11          # 199 DIM LO$(RC)
-8616,8638,200,275,18          # 200 LO$(0)="inventory"
-8639,8665,201,276,22          # 201 LO$(1)="dank basement"
-8666,8691,202,277,21          # 202 LO$(2)="furnace room"
-8692,8718,203,278,22          # 203 LO$(3)="service hatch"
-8719,8745,204,279,22          # 204 LO$(4)="a store room?"
-8746,8776,205,280,26          # 205 LO$(5)="outside the house"
-8777,8807,206,281,26          # 206 LO$(6)="cramped stairwell"
-8808,8937,207,284,128         # 207 REM room descriptions                          :                                       :                                       
-8938,8951,208,285,11          # 208 DIM RD$(RC)
-8952,8965,209,286,9           # 209 RD$(0)=""
-8966,9122,210,287,152         # 210 RD$(1)="a chillingly damp, bare-bricked room    with poured cement floor and timber     beamed ceiling. window frames are       boarded along one wall."
-9123,9294,211,288,167         # 211 RD$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement. you smell gas."
-9295,9466,212,289,167         # 212 RD$(3)="up above the furnace, this tiny space   must have been built to allow access to hvac ducting. the smell of gas is strong here, and the furnace hums ominously."
-9467,9632,213,290,161         # 213 RD$(4)="the dark and dusty room is empty, with  a single light bulb hanging from the    ceiling. there is an old wooden door on the far wall covered in cobwebs."
-9633,9725,214,291,88          # 214 RD$(5)="outside the house, you can see the front door and a path leading to the street."
-9726,9811,215,292,81          # 215 RD$(6)="a tiny, twisty stairwell that was       previously obscured by the dark."
-9812,9836,216,296,22          # 216 REM object's locations
-9837,9869,217,297,30          # 217 REM loc 0 = player's inventory
-9870,9882,218,298,10          # 218 DIM OL(OC)
-9883,9948,219,299,63          # 219 OL(0)=0 : REM matches are in inventory at the start of the game
-9949,9988,220,300,37          # 220 OL(1)=6 : REM key is in the stairwell
-9989,10005,221,302,14         # 221 REM exit names
-10006,10018,222,303,10        # 222 DIM EN$(6)
-10019,10037,223,304,14        # 223 EN$(0)="north"
-10038,10055,224,305,13        # 224 EN$(1)="east"
-10056,10074,225,306,14        # 225 EN$(2)="south"
-10075,10092,226,307,13        # 226 EN$(3)="west"
-10093,10108,227,308,11        # 227 EN$(4)="up"
-10109,10126,228,309,13        # 228 EN$(5)="down"
-10127,10143,229,312,14        # 229 REM room exits
-10144,10165,230,313,19        # 230 REM     N E S W U D
-10166,10179,231,314,11        # 231 DIM EX$(20)
-10180,10205,232,315,21        # 232 EX$(1)="000002000000"
-10206,10231,233,316,21        # 233 EX$(2)="010004000300"
-10232,10257,234,317,21        # 234 EX$(3)="000000000002"
-10258,10283,235,318,21        # 235 EX$(4)="020000000000"
-10284,10309,236,319,21        # 236 EX$(5)="040000000000"
-10310,10335,237,320,21        # 237 EX$(6)="000000020000"
-10336,10348,238,323,10        # 238 REM player
-10349,10361,239,324,10        # 239 REM ======
-10362,10392,240,325,28        # 240 PL = 1 : REM player location
-10393,10432,241,326,37        # 241 PP = 1 : REM player previous location
-10433,10453,242,330,18        # 242 REM welcome screen
-10454,10463,243,331,15        # 243 GOSUB 177
-10464,10473,244,332,11        # 244 GOSUB 261
-10474,10483,245,333,15        # 245 GOSUB 177
-10484,10517,246,335,29        # 246 ? "             murder house"
-10518,10556,247,336,34        # 247 ? "         a text adventure game"
-10557,10592,248,337,31        # 248 ? "           by chris garrett"
-10593,10622,249,338,25        # 249 ? "                 2025"
-10623,10630,250,339,3         # 250 ?""
-10631,10640,251,340,5         # 251 ? LG$
-10641,10678,252,341,33        # 252 ? "          retrogamecoders.com"
-10679,10686,253,342,3         # 253 ?""
-10687,10733,254,343,42        # 254 ?" press h for help or other key to start"
-10734,10741,255,344,3         # 255 ?""
-10742,10750,256,347,6         # 256 GET I$
-10751,10770,257,348,34        # 257 IF I$="" THEN goto 256
-10771,10791,258,349,25        # 258 IF I$="h" THEN gosub 147
-10792,10822,259,350,37        # 259 IF I$ <> "h" AND I$ <> "" THEN RETURN
-10823,10828,260,351,6         # 260 RETURN
-10829,10846,261,354,16        # 261 FOR I = 0 TO 999
-10847,10854,262,355,7         # 262 READ C
-10855,10879,263,356,31        # 263 GET I$: IF I$ <> "" THEN RETURN
-10880,10894,264,357,13        # 264 POKE 1024+I,C
-10895,10902,265,358,6         # 265 NEXT I
-10903,11067,266,359,163       # 266 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-11068,11232,267,360,163       # 267 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-11233,11397,268,361,163       # 268 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-11398,11562,269,362,163       # 269 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-11563,11727,270,363,163       # 270 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 85, 73, 32, 32, 32, 32, 32, 32, 32, 32, 32, 71, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-11728,11892,271,364,163       # 271 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 74, 75, 32, 32, 32, 32, 32,233,223, 32, 32, 93, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-11893,12057,272,365,163       # 272 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,233,105, 95,223, 32, 71, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-12058,12222,273,366,163       # 273 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,233,105, 78, 77, 95,223,208, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-12223,12387,274,367,163       # 274 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,233,105, 78, 85, 73, 77, 95,234, 32, 32, 32, 85, 73, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-12388,12552,275,368,163       # 275 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 85, 73, 32, 32, 32,236, 32, 32, 74, 75, 32, 32,251, 32, 32, 85, 85, 73, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-12553,12717,276,369,163       # 276 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 85, 32, 73, 85, 73, 32, 97,112,110, 32, 32,112,110,225, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-12718,12882,277,370,163       # 277 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 97,109,125, 32, 32,109,125,225, 32,104, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-12883,13047,278,371,163       # 278 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,104, 92, 32, 97,112,110, 79, 80,112,110,225,104,102,104, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-13048,13212,279,372,163       # 279 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,102,102,102, 92, 97,109,125,116,103,109,125,225,102,102,102,102, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-13213,13377,280,373,163       # 280 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,102,102, 32, 32,104,104,104,104,160,120,104,104,104,104, 32,102,102, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-13378,13542,281,374,163       # 281 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,104,104,104,104,104,248,120,104,104,104,104,104, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-13543,13707,282,375,163       # 282 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,104,104,104,104,104,104,104,120,160,104,104,104,104,104,104, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-13708,13872,283,376,163       # 283 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,160,120, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-13873,14037,284,377,163       # 284 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-14038,14202,285,378,163       # 285 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32,112,114, 73, 32, 32, 85, 73, 32, 93, 85, 73, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-14203,14367,286,379,163       # 286 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 93, 93, 93, 93, 72, 66, 32, 85, 93,107, 75, 85, 73, 32, 93, 93, 85, 73, 93, 72, 85, 73, 85, 73, 32, 32, 32, 32, 32, 32, 32
-14368,14532,287,380,163       # 287 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 93, 32, 93, 74, 75, 93, 32, 74,125, 74, 75, 66, 32, 32,107,115, 93, 93, 93, 72, 74, 73,107, 75, 32, 32, 32, 32, 32, 32, 32
-14533,14697,288,381,163       # 288 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 93, 93, 74, 75, 74, 75, 74, 75, 74, 75, 32, 32, 32, 32, 32, 32, 32
-14698,14862,289,382,163       # 289 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-14863,15027,290,383,163       # 290 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
-15028,15045,291,385,15        # 291 REM colour data
-15046,15063,292,386,17        # 292 FOR I = 0 TO 999
-15064,15071,293,387,7         # 293 READ C
-15072,15087,294,388,14        # 294 POKE 55296+I,C
-15088,15112,295,389,31        # 295 GET I$: IF I$ <> "" THEN RETURN
-15113,15120,296,390,6         # 296 NEXT I
-15121,15285,297,391,163       # 297 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-15286,15450,298,392,163       # 298 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-15451,15615,299,393,163       # 299 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-15616,15780,300,394,163       # 300 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-15781,15945,301,395,163       # 301 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 14, 14, 14, 14, 14, 14, 14, 14, 14, 10, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-15946,16109,302,396,163       # 302 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 14, 14, 14, 14, 14, 15, 12, 14, 14, 8, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-16110,16273,303,397,163       # 303 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 12, 12, 14, 2, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-16274,16438,304,398,163       # 304 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 12, 12, 12, 12, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-16439,16602,305,399,163       # 305 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 12, 12, 12, 12, 14, 14, 14, 1, 15, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-16603,16764,306,400,163       # 306 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 1, 15, 14, 14, 14, 15, 14, 14, 12, 11, 14, 14, 11, 14, 14, 1, 1, 15, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-16765,16927,307,401,163       # 307 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 1, 14, 15, 1, 15, 14, 15, 15, 12, 14, 14, 15, 12, 11, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-16928,17092,308,402,163       # 308 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 12, 11, 14, 14, 12, 11, 11, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-17093,17255,309,403,163       # 309 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 5, 14, 12, 15, 12, 12, 11, 15, 12, 11, 11, 14, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-17256,17414,310,404,163       # 310 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 5, 5, 5, 12, 10, 2, 11, 11, 10, 2, 11, 11, 11, 14, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-17415,17573,311,405,163       # 311 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 5, 14, 14, 14, 5, 5, 14, 10, 10, 14, 5, 5, 14, 14, 14, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-17574,17730,312,406,163       # 312 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 5, 5, 5, 14, 8, 8, 14, 5, 5, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-17731,17885,313,407,163       # 313 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 5, 5, 5, 5, 14, 2, 2, 14, 5, 5, 5, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-17886,18048,314,408,163       # 314 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 2, 2, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-18049,18213,315,409,163       # 315 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-18214,18370,316,410,163       # 316 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 1, 1, 1, 14, 14, 1, 1, 14, 1, 1, 1, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-18371,18524,317,411,163       # 317 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 10, 10, 10, 10, 10, 10, 14, 10, 10, 10, 10, 10, 1, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 14, 14, 14, 14, 14, 14, 14
-18525,18684,318,412,163       # 318 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 2, 14, 2, 2, 2, 2, 14, 10, 10, 10, 10, 10, 14, 14, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 14, 14, 14, 14, 14, 14, 14
-18685,18839,319,413,163       # 319 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 14, 14, 14, 14, 14, 14, 14
-18840,19004,320,414,163       # 320 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
-19005,19168,321,415,162       # 321 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 1
-19169,19177,322,417,13        # 322 GOSUB 70
-19178,19183,323,418,6         # 323 RETURN
-19184,19193,324,421,12        # 324 GOSUB 182
-19194,19220,325,422,28        # 325 POKE 53281,6 : POKE 53280,14
-19221,19237,326,423,16        # 326 PRINT "Goodbye!"
-19238,19246,327,424,8         # 327 PRINT ""
-19247,19271,328,425,26        # 328 PRINT "memory free",FRE(0)
-19272,19280,329,426,8         # 329 PRINT ""
+3476,3483,46,51,16            # 46 GOTO 4
+3484,3535,47,54,49            # 47 REM fully written out move (eg. GO SOUTH or GO S)
+3536,3554,48,55,17            # 48 D$ = MID$(I$,4,1)
+3555,3563,49,56,11            # 49 GOSUB 55
+3564,3569,50,57,6             # 50 RETURN
+3570,3600,51,60,28            # 51 REM abbreviated move (eg. N)
+3601,3612,52,61,7             # 52 D$ = I$
+3613,3621,53,62,11            # 53 GOSUB 55
+3622,3627,54,63,6             # 54 RETURN
+3628,3668,55,67,38            # 55 REM go to the new player location (PL)
+3669,3708,56,68,44            # 56 IF D$ = "n" THEN pl = VAL(MID$(EX$(PL),1,2))
+3709,3748,57,69,44            # 57 IF D$ = "e" THEN pl = VAL(MID$(EX$(PL),3,2))
+3749,3788,58,70,44            # 58 IF D$ = "s" THEN pl = VAL(MID$(EX$(PL),5,2))
+3789,3828,59,71,44            # 59 IF D$ = "w" THEN pl = VAL(MID$(EX$(PL),7,2))
+3829,3868,60,72,44            # 60 IF D$ = "u" THEN pl = VAL(MID$(EX$(PL),9,2))
+3869,3909,61,73,45            # 61 IF D$ = "d" THEN pl = VAL(MID$(EX$(PL),11,2))
+3910,3915,62,75,6             # 62 RETURN
+3916,3952,63,78,34            # 63 REM objects the player is carrying
+3953,3961,64,79,8             # 64 PRINT ""
+3962,3997,65,80,35            # 65 PRINT "Objects in your possession:"
+3998,4080,66,81,105           # 66 FOR I = 0 TO OC-1 : REM check object location from the first object to object count
+4081,4150,67,82,79            # 67 IF OL(I) = 0 THEN PRINT ". ";OB$(I) : REM if the object is in zero print it
+4151,4158,68,83,6             # 68 NEXT I
+4159,4167,69,84,8             # 69 PRINT ""
+4168,4228,70,87,60            # 70 PRINT CY$+RV$+"        press a key to continue         "+RO$
+4229,4237,71,89,6             # 71 GET I$
+4238,4254,72,90,27            # 72 IF I$="" GOTO 71
+4255,4260,73,91,6             # 73 RETURN
+4261,4292,74,94,29            # 74 REM alternative action to get
+4293,4307,75,95,10            # 75 F=-1:R$=""
+4308,4351,76,96,52            # 76 R$ = MID$(I$,6) : REM r$ is object requested
+4352,4360,77,97,13            # 77 GOTO 81
+4361,4424,78,100,61           # 78 REM allow player to get available object and put in inventory
+4425,4439,79,101,10           # 79 F=-1:R$=""
+4440,4483,80,102,52           # 80 R$ = MID$(I$,5) : REM r$ is object requested
+4484,4507,81,105,21           # 81 REM get the object id
+4508,4524,82,106,15           # 82 FOR I = 1 TO OC
+4525,4564,83,107,41           # 83 IF OB$(I-1) = R$ THEN f=I : REM it exists
+4565,4572,84,108,6            # 84 NEXT I
+4573,4593,85,110,18           # 85 REM can't find it?
+4594,4602,86,111,8            # 86 PRINT ""
+4603,4679,87,112,92           # 87 IF F=-1 THEN PRINT "can't see that here, check spelling and be specific?" : GOTO 95
+4680,4703,88,113,29           # 88 IF OL(F-1)=PL THEN goto 92
+4704,4754,89,114,66           # 89 IF OL(F-1)=0 THEN PRINT "you already have that" : GOTO 95
+4755,4791,90,115,36           # 90 PRINT "I can't see that around here"
+4792,4800,91,116,16           # 91 GOTO 95
+4801,4869,92,119,66           # 92 OL(F-1)=0 : REM set the object location to inventory aka room zero
+4870,4878,93,120,8            # 93 PRINT ""
+4879,4905,94,121,26           # 94 PRINT "got the ";OBJ$(F-1)
+4906,4914,95,124,8            # 95 PRINT ""
+4915,4923,96,125,13           # 96 GOSUB 70
+4924,4929,97,126,6            # 97 RETURN
+4930,4971,98,130,39           # 98 REM drop objects the player is carrying
+4972,4986,99,132,10           # 99 F=-1:R$=""
+4987,5030,100,133,52          # 100 R$ = MID$(I$,6) : REM r$ is object requested
+5031,5054,101,135,21          # 101 REM get the object id
+5055,5071,102,136,15          # 102 FOR I = 1 TO OC
+5072,5111,103,137,41          # 103 IF OB$(I-1) = R$ THEN f=I : REM it exists
+5112,5119,104,138,6           # 104 NEXT I
+5120,5140,105,140,18          # 105 REM can't find it?
+5141,5149,106,141,8           # 106 PRINT ""
+5150,5231,107,142,97          # 107 IF F=-1 THEN PRINT "can't seem to find that, check spelling and be specific?" : GOTO 110
+5232,5287,108,143,71          # 108 IF OL(F-1)=0 THEN PRINT "ok, dropped!" : OL(F-1)=PL : GOTO 110
+5288,5334,109,144,46          # 109 PRINT "no can do, are you sure you have that?"
+5335,5343,110,148,13          # 110 GOSUB 70
+5344,5349,111,149,6           # 111 RETURN
+5350,5394,112,152,42          # 112 REM examine objects the player is carrying
+5395,5409,113,154,10          # 113 F=-1:R$=""
+5410,5453,114,155,52          # 114 R$ = MID$(I$,9) : REM r$ is object requested
+5454,5477,115,157,21          # 115 REM get the object id
+5478,5494,116,158,15          # 116 FOR I = 1 TO OC
+5495,5534,117,159,41          # 117 IF OB$(I-1) = R$ THEN f=I : REM it exists
+5535,5542,118,160,6           # 118 NEXT I
+5543,5563,119,162,18          # 119 REM can't find it?
+5564,5572,120,163,8           # 120 PRINT ""
+5573,5654,121,164,98          # 121 IF F=-1 THEN PRINT "can't seem to find that, check spelling and be specific?" : GOTO 124
+5655,5691,122,165,53          # 122 IF OL(F-1)=0 THEN PRINT OD$(F-1) : GOTO 124
+5692,5738,123,166,46          # 123 PRINT "no can do, are you sure you have that?"
+5739,5747,124,170,13          # 124 GOSUB 70
+5748,5753,125,171,6           # 125 RETURN
+5754,5796,126,174,40          # 126 REM use an object the player is carrying
+5797,5811,127,176,10          # 127 F=-1:R$=""
+5812,5855,128,177,52          # 128 R$ = MID$(I$,5) : REM r$ is object requested
+5856,5879,129,179,21          # 129 REM get the object id
+5880,5896,130,180,15          # 130 FOR I = 1 TO OC
+5897,5936,131,181,41          # 131 IF OB$(I-1) = R$ THEN f=I : REM it exists
+5937,5944,132,182,6           # 132 NEXT I
+5945,5965,133,184,18          # 133 REM can't find it?
+5966,5974,134,185,8           # 134 PRINT ""
+5975,6056,135,186,94          # 135 IF F=-1 THEN PRINT "can't seem to find that, check spelling and be specific?" : GOTO 138
+6057,6088,136,187,54          # 136 IF OL(F-1)=0 THEN gosub 140 : GOTO 138
+6089,6135,137,188,46          # 137 PRINT "no can do, are you sure you have that?"
+6136,6144,138,192,13          # 138 GOSUB 70
+6145,6150,139,193,6           # 139 RETURN
+6151,6182,140,197,29          # 140 REM actions for using objects
+6183,6309,141,198,152         # 141 IF F=1 AND PL=3 THEN PRINT "boom! the furnace explodes, filling the room with fire and smoke!":GOSUB 70:GOSUB 324: REM matches in furnace room
+6310,6519,142,199,230         # 142 IF F=1 AND PL=2 THEN PRINT "suddenly the furnace roars to life, filling the room with heat and light!":EX$(2)="010604000300":M=M-1: IF M<=0 THEN PRINT "You are out of matches":OL(F-1)=-1: RETURN : REM remove matches from inventory
+6520,6701,143,200,197         # 143 IF F=1 AND PL <> 2 THEN PRINT "you strike a match and light it, illuminating the room for a moment.":M=M-1: IF M<=0 THEN PRINT "You are out of matches":OL(F-1)=-1: REM remove matches from inventory
+6702,6816,144,201,122         # 144 IF F=2 AND PL=4 THEN PRINT "click! the door has unlocked!":EX$(4)="020005000000":OL(F-1)=-1: REM remove key from inventory
+6817,6899,145,202,88          # 145 IF F=2 AND PL<>4 THEN PRINT "you try to use the key, but it doesn't fit any locks here."
+6900,6905,146,203,6           # 146 RETURN
+6906,6994,147,206,87          # 147 REM show help screen                          :                                       
+6995,7004,148,207,15          # 148 GOSUB 177
+7005,7098,149,208,93          # 149 PRINT "you have woken up in a dark and damp    basement, with no memory of how you got here."
+7099,7107,150,209,8           # 150 PRINT ""
+7108,7196,151,210,88          # 151 PRINT "your head is pounding and you feel      disoriented. you need to find a way out."
+7197,7205,152,211,8           # 152 PRINT ""
+7206,7248,153,212,42          # 153 PRINT "enter the command you want to use:"
+7249,7293,154,213,44          # 154 PRINT "  North, South, East, West, Up, Down"
+7294,7322,155,214,28          # 155 PRINT "  (n, s, e, w, u, d)"
+7323,7331,156,215,8           # 156 PRINT ""
+7332,7369,157,216,37          # 157 PRINT "  get <object>, take <object>"
+7370,7393,158,217,23          # 158 PRINT "  drop <object>"
+7394,7420,159,218,26          # 159 PRINT "  examine <object>"
+7421,7438,160,219,17          # 160 PRINT "  i, look"
+7439,7461,161,220,22          # 161 PRINT "  i, inventory"
+7462,7479,162,221,17          # 162 PRINT "  h, help"
+7480,7503,163,222,23          # 163 PRINT "  q, quit, exit"
+7504,7512,164,223,8           # 164 PRINT ""
+7513,7521,165,224,8           # 165 PRINT ""
+7522,7530,166,225,13          # 166 GOSUB 70
+7531,7536,167,226,6           # 167 RETURN
+7537,7558,168,229,19          # 168 REM show win screen
+7559,7568,169,231,15          # 169 GOSUB 177
+7569,7630,170,232,61          # 170 PRINT "Congratulations! You have escaped the   murder house!"
+7631,7639,171,233,8           # 171 PRINT ""
+7640,7749,172,234,109         # 172 PRINT "now you know where the exit is feel free to go back in and explore, just do not hang around too long!"
+7750,7758,173,235,8           # 173 PRINT ""
+7759,7767,174,236,13          # 174 GOSUB 70
+7768,7777,175,237,12          # 175 GOSUB 182
+7778,7783,176,238,6           # 176 RETURN
+7784,7821,177,242,35          # 177 REM clear screen and set up colours
+7822,7865,178,243,47          # 178 POKE 53281,6 : POKE 53280,6: REM screen colours
+7866,7911,179,244,49          # 179 LB$=CHR$(154): WT$=CHR$(5): REM light blue, white
+7912,7957,180,245,49          # 180 YL$=CHR$(158): CY$=CHR$(159): REM yellow and cyan
+7958,8065,181,246,120         # 181 RV$=CHR$(18): RO$=CHR$(146): BL$=CHR$(13) + CHR$(187) + CHR$(32): REM reverse on and off to make listing the code easier
+8066,8123,182,249,73          # 182 PRINT WT$: PRINT CHR$(147): PRINT CHR$(19);: REM clear screen, white text
+8124,8129,183,250,6           # 183 RETURN
+8130,8167,184,255,35          # 184 REM set up the game and the display
+8168,8177,185,256,15          # 185 GOSUB 177
+8178,8205,186,258,25          # 186 REM objects and locations
+8206,8233,187,259,25          # 187 REM =====================
+8234,8247,188,260,11          # 188 REM objects
+8248,8275,189,261,25          # 189 OC = 2 : REM object count
+8276,8289,190,262,11          # 190 DIM OB$(OC)
+8290,8352,191,263,60          # 191 OB$(0)="matches": M=6 : REM matches, 6 in inventory to start
+8353,8369,192,264,12          # 192 OB$(1)="key"
+8370,8395,193,266,23          # 193 REM object descriptions
+8396,8409,194,267,11          # 194 DIM OD$(OC)
+8410,8505,195,268,91          # 195 OD$(0)="a small book of promotional matches advertising patty's bar and grill, north lakes"
+8506,8559,196,269,49          # 196 OD$(1)="a large and heavy key made out of brass."
+8560,8575,197,271,13          # 197 REM locations
+8576,8601,198,272,23          # 198 RC = 6 : REM room count
+8602,8615,199,273,11          # 199 DIM LO$(RC)
+8616,8638,200,274,18          # 200 LO$(0)="inventory"
+8639,8665,201,275,22          # 201 LO$(1)="dank basement"
+8666,8691,202,276,21          # 202 LO$(2)="furnace room"
+8692,8718,203,277,22          # 203 LO$(3)="service hatch"
+8719,8745,204,278,22          # 204 LO$(4)="a store room?"
+8746,8776,205,279,26          # 205 LO$(5)="outside the house"
+8777,8807,206,280,26          # 206 LO$(6)="cramped stairwell"
+8808,8937,207,283,128         # 207 REM room descriptions                          :                                       :                                       
+8938,8951,208,284,11          # 208 DIM RD$(RC)
+8952,8965,209,285,9           # 209 RD$(0)=""
+8966,9122,210,286,152         # 210 RD$(1)="a chillingly damp, bare-bricked room    with poured cement floor and timber     beamed ceiling. window frames are       boarded along one wall."
+9123,9294,211,287,167         # 211 RD$(2)="this room is obviously a later addition, thrown together with drywall, and just large enough to section off the furnace from the main basement. you smell gas."
+9295,9466,212,288,167         # 212 RD$(3)="up above the furnace, this tiny space   must have been built to allow access to hvac ducting. the smell of gas is strong here, and the furnace hums ominously."
+9467,9632,213,289,161         # 213 RD$(4)="the dark and dusty room is empty, with  a single light bulb hanging from the    ceiling. there is an old wooden door on the far wall covered in cobwebs."
+9633,9725,214,290,88          # 214 RD$(5)="outside the house, you can see the front door and a path leading to the street."
+9726,9811,215,291,81          # 215 RD$(6)="a tiny, twisty stairwell that was       previously obscured by the dark."
+9812,9836,216,295,22          # 216 REM object's locations
+9837,9869,217,296,30          # 217 REM loc 0 = player's inventory
+9870,9882,218,297,10          # 218 DIM OL(OC)
+9883,9948,219,298,63          # 219 OL(0)=0 : REM matches are in inventory at the start of the game
+9949,9988,220,299,37          # 220 OL(1)=6 : REM key is in the stairwell
+9989,10005,221,301,14         # 221 REM exit names
+10006,10018,222,302,10        # 222 DIM EN$(6)
+10019,10037,223,303,14        # 223 EN$(0)="north"
+10038,10055,224,304,13        # 224 EN$(1)="east"
+10056,10074,225,305,14        # 225 EN$(2)="south"
+10075,10092,226,306,13        # 226 EN$(3)="west"
+10093,10108,227,307,11        # 227 EN$(4)="up"
+10109,10126,228,308,13        # 228 EN$(5)="down"
+10127,10143,229,311,14        # 229 REM room exits
+10144,10165,230,312,19        # 230 REM     N E S W U D
+10166,10179,231,313,11        # 231 DIM EX$(20)
+10180,10205,232,314,21        # 232 EX$(1)="000002000000"
+10206,10231,233,315,21        # 233 EX$(2)="010004000300"
+10232,10257,234,316,21        # 234 EX$(3)="000000000002"
+10258,10283,235,317,21        # 235 EX$(4)="020000000000"
+10284,10309,236,318,21        # 236 EX$(5)="040000000000"
+10310,10335,237,319,21        # 237 EX$(6)="000000020000"
+10336,10348,238,322,10        # 238 REM player
+10349,10361,239,323,10        # 239 REM ======
+10362,10392,240,324,28        # 240 PL = 1 : REM player location
+10393,10432,241,325,37        # 241 PP = 1 : REM player previous location
+10433,10453,242,329,18        # 242 REM welcome screen
+10454,10463,243,330,15        # 243 GOSUB 177
+10464,10473,244,331,11        # 244 GOSUB 261
+10474,10483,245,332,15        # 245 GOSUB 177
+10484,10517,246,334,29        # 246 ? "             murder house"
+10518,10556,247,335,34        # 247 ? "         a text adventure game"
+10557,10592,248,336,31        # 248 ? "           by chris garrett"
+10593,10622,249,337,25        # 249 ? "                 2025"
+10623,10630,250,338,3         # 250 ?""
+10631,10640,251,339,5         # 251 ? LG$
+10641,10678,252,340,33        # 252 ? "          retrogamecoders.com"
+10679,10686,253,341,3         # 253 ?""
+10687,10733,254,342,42        # 254 ?" press h for help or other key to start"
+10734,10741,255,343,3         # 255 ?""
+10742,10750,256,346,6         # 256 GET I$
+10751,10770,257,347,34        # 257 IF I$="" THEN goto 256
+10771,10791,258,348,25        # 258 IF I$="h" THEN gosub 147
+10792,10822,259,349,37        # 259 IF I$ <> "h" AND I$ <> "" THEN RETURN
+10823,10828,260,350,6         # 260 RETURN
+10829,10846,261,353,16        # 261 FOR I = 0 TO 999
+10847,10854,262,354,7         # 262 READ C
+10855,10879,263,355,31        # 263 GET I$: IF I$ <> "" THEN RETURN
+10880,10894,264,356,13        # 264 POKE 1024+I,C
+10895,10902,265,357,6         # 265 NEXT I
+10903,11067,266,358,163       # 266 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+11068,11232,267,359,163       # 267 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+11233,11397,268,360,163       # 268 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+11398,11562,269,361,163       # 269 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+11563,11727,270,362,163       # 270 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 85, 73, 32, 32, 32, 32, 32, 32, 32, 32, 32, 71, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+11728,11892,271,363,163       # 271 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 74, 75, 32, 32, 32, 32, 32,233,223, 32, 32, 93, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+11893,12057,272,364,163       # 272 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,233,105, 95,223, 32, 71, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+12058,12222,273,365,163       # 273 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,233,105, 78, 77, 95,223,208, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+12223,12387,274,366,163       # 274 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,233,105, 78, 85, 73, 77, 95,234, 32, 32, 32, 85, 73, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+12388,12552,275,367,163       # 275 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 85, 73, 32, 32, 32,236, 32, 32, 74, 75, 32, 32,251, 32, 32, 85, 85, 73, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+12553,12717,276,368,163       # 276 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 85, 32, 73, 85, 73, 32, 97,112,110, 32, 32,112,110,225, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+12718,12882,277,369,163       # 277 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 97,109,125, 32, 32,109,125,225, 32,104, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+12883,13047,278,370,163       # 278 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,104, 92, 32, 97,112,110, 79, 80,112,110,225,104,102,104, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+13048,13212,279,371,163       # 279 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,102,102,102, 92, 97,109,125,116,103,109,125,225,102,102,102,102, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+13213,13377,280,372,163       # 280 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,102,102, 32, 32,104,104,104,104,160,120,104,104,104,104, 32,102,102, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+13378,13542,281,373,163       # 281 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,104,104,104,104,104,248,120,104,104,104,104,104, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+13543,13707,282,374,163       # 282 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,104,104,104,104,104,104,104,120,160,104,104,104,104,104,104, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+13708,13872,283,375,163       # 283 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32,160,120, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+13873,14037,284,376,163       # 284 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+14038,14202,285,377,163       # 285 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32,112,114, 73, 32, 32, 85, 73, 32, 93, 85, 73, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+14203,14367,286,378,163       # 286 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 93, 93, 93, 93, 72, 66, 32, 85, 93,107, 75, 85, 73, 32, 93, 93, 85, 73, 93, 72, 85, 73, 85, 73, 32, 32, 32, 32, 32, 32, 32
+14368,14532,287,379,163       # 287 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 93, 32, 93, 74, 75, 93, 32, 74,125, 74, 75, 66, 32, 32,107,115, 93, 93, 93, 72, 74, 73,107, 75, 32, 32, 32, 32, 32, 32, 32
+14533,14697,288,380,163       # 288 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 93, 93, 74, 75, 74, 75, 74, 75, 74, 75, 32, 32, 32, 32, 32, 32, 32
+14698,14862,289,381,163       # 289 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+14863,15027,290,382,163       # 290 DATA 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32, 32
+15028,15045,291,384,15        # 291 REM colour data
+15046,15063,292,385,17        # 292 FOR I = 0 TO 999
+15064,15071,293,386,7         # 293 READ C
+15072,15087,294,387,14        # 294 POKE 55296+I,C
+15088,15112,295,388,31        # 295 GET I$: IF I$ <> "" THEN RETURN
+15113,15120,296,389,6         # 296 NEXT I
+15121,15285,297,390,163       # 297 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+15286,15450,298,391,163       # 298 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+15451,15615,299,392,163       # 299 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+15616,15780,300,393,163       # 300 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+15781,15945,301,394,163       # 301 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 14, 14, 14, 14, 14, 14, 14, 14, 14, 10, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+15946,16109,302,395,163       # 302 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 14, 14, 14, 14, 14, 15, 12, 14, 14, 8, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+16110,16273,303,396,163       # 303 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 12, 12, 14, 2, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+16274,16438,304,397,163       # 304 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 12, 12, 12, 12, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+16439,16602,305,398,163       # 305 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 15, 15, 15, 12, 12, 12, 12, 14, 14, 14, 1, 15, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+16603,16764,306,399,163       # 306 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 1, 15, 14, 14, 14, 15, 14, 14, 12, 11, 14, 14, 11, 14, 14, 1, 1, 15, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+16765,16927,307,400,163       # 307 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 1, 14, 15, 1, 15, 14, 15, 15, 12, 14, 14, 15, 12, 11, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+16928,17092,308,401,163       # 308 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 15, 12, 11, 14, 14, 12, 11, 11, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+17093,17255,309,402,163       # 309 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 5, 14, 12, 15, 12, 12, 11, 15, 12, 11, 11, 14, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+17256,17414,310,403,163       # 310 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 5, 5, 5, 12, 10, 2, 11, 11, 10, 2, 11, 11, 11, 14, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+17415,17573,311,404,163       # 311 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 13, 5, 14, 14, 14, 5, 5, 14, 10, 10, 14, 5, 5, 14, 14, 14, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+17574,17730,312,405,163       # 312 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 5, 5, 5, 14, 8, 8, 14, 5, 5, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+17731,17885,313,406,163       # 313 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 5, 5, 5, 5, 14, 2, 2, 14, 5, 5, 5, 5, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+17886,18048,314,407,163       # 314 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 2, 2, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+18049,18213,315,408,163       # 315 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+18214,18370,316,409,163       # 316 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 1, 1, 1, 14, 14, 1, 1, 14, 1, 1, 1, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+18371,18524,317,410,163       # 317 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 10, 10, 10, 10, 10, 10, 14, 10, 10, 10, 10, 10, 1, 14, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 14, 14, 14, 14, 14, 14, 14
+18525,18684,318,411,163       # 318 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 2, 14, 2, 2, 2, 2, 14, 10, 10, 10, 10, 10, 14, 14, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 14, 14, 14, 14, 14, 14, 14
+18685,18839,319,412,163       # 319 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 14, 14, 14, 14, 14, 14, 14
+18840,19004,320,413,163       # 320 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14
+19005,19168,321,414,162       # 321 DATA 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 14, 1
+19169,19177,322,416,13        # 322 GOSUB 70
+19178,19183,323,417,6         # 323 RETURN
+19184,19193,324,420,12        # 324 GOSUB 182
+19194,19220,325,421,28        # 325 POKE 53281,6 : POKE 53280,14
+19221,19237,326,422,16        # 326 PRINT "Goodbye!"
+19238,19246,327,423,8         # 327 PRINT ""
+19247,19271,328,424,26        # 328 PRINT "memory free",FRE(0)
+19272,19280,329,425,8         # 329 PRINT ""
