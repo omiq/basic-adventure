@@ -238,10 +238,10 @@ gosub waitkey
 gosub clrscr
 RETURN
 
-
 newscreen:
 rem clear screen and set up colours
 POKE 53281,6 : POKE 53280,6: rem screen colours
+POKE 53272, 21 : rem PETSCII
 lb$=chr$(154): wt$=chr$(5): rem light blue, white
 yl$=chr$(158): cy$=chr$(159): rem yellow and cyan
 rv$=chr$(18): ro$=chr$(146): bl$=chr$(13) + chr$(187) + chr$(32): rem reverse on and off to make listing the code easier
